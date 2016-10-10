@@ -11,8 +11,8 @@ namespace RPG
         string path;
         public FileManager()
         {
-            path = System.IO.Path.GetDirectoryName(@"Enemy.cs");
-            
+            path = System.IO.Path.GetFullPath(@"Enemy.cs");
+            Console.WriteLine(path);
         }
     }
 }
