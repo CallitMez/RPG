@@ -8,7 +8,7 @@ namespace RPG
 {
     class Battle
     {
-        int battletimer = 1;
+        double battletimer = 1;
         List<Creature> heroes, enemies;
         List<Creature> everyone = new List<Creature>();
         public Battle(List<Creature> heroes, List<Creature> enemies)
@@ -30,7 +30,8 @@ namespace RPG
 
         public bool proceed()
         {
-
+            Random rnd = new Random();
+            everyone = everyone.OrderBy(c => rnd.Next()).ToList();
             /*Creature currentcreature = updatespeed();
             turn(currentcreature);*/
             updatespeed();
@@ -85,6 +86,7 @@ namespace RPG
 
         void turn(Creature creature)
         {
+            everyone = everyone.OrderBy(c => c.Hate).ToList();
             if (creature.Type == "hero") foreach (Creature c in everyone)
                 {
                     if (c.Type == "enemy")

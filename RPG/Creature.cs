@@ -13,7 +13,7 @@ namespace RPG
         public int HP;
         public double aspd;
         public double battlecounter = 1;
-        public Creature(string name, int HP, int attack, int aspd = 1, string type = "creature")
+        public Creature(string name, int HP, int attack, int aspd = 5, string type = "creature")
         {
             this.name = name;
             this.type = type;
@@ -23,18 +23,11 @@ namespace RPG
             this.attack = attack;
         }
 
-        public string Name
-        {
-            get { return name; }
-        }
-        public int Atk
-        {
-            get { return attack; }
-        }
-        public string Type
-        {
-            get { return type; }
-        }
+        public string Name { get { return name; } }
+        public int Atk { get { return attack; } }
+        public string Type { get { return type; } }
+        public int Hate { get { return taunt; } }
+
         public void damage(int amount)
         {
             HP -= amount;
