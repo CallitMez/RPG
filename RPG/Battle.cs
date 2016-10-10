@@ -8,7 +8,7 @@ namespace RPG
 {
     class Battle
     {
-        int round = 1;
+        int battletimer = 1;
         List<Creature> heroes, enemies;
         List<Creature> everyone = new List<Creature>();
         public Battle(List<Creature> heroes, List<Creature> enemies)
@@ -31,14 +31,15 @@ namespace RPG
         public bool proceed()
         {
 
-            Creature currentcreature = updatespeed();
-            turn(currentcreature);
+            /*Creature currentcreature = updatespeed();
+            turn(currentcreature);*/
+            updatespeed();
 
             everyone = everyone.OrderBy(c => c.aspd).ToList();
             //everyone.Reverse();
             foreach (Creature c in everyone)
             {
-                Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP.");
+                Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP and " + c.battlecounter + " aspd.");
             }
             if (true)
             {
@@ -49,20 +50,34 @@ namespace RPG
                 return false;
             }
         }
-        public Creature updatespeed()
+        public void updatespeed()
+        {
+            everyone = everyone.OrderBy(c => c.aspd).ToList();
+            foreach (Creature c in everyone) if (c.HP <= 0) c.HP = 0;
+            everyone.RemoveAll(c => c.HP == 0);
+            battletimer += 1;
+            foreach (Creature c in everyone)
+            {
+                if (battletimer % c.aspd == 0)
+                {
+                    turn(c);
+                }
+            }
+        }
+        public Creature updatespeedOldAndFailed()
         {
             everyone = everyone.OrderBy(c => c.aspd).ToList();
             foreach (Creature c in everyone)
             {
                 if (c.HP <= 0){
                     c.HP = 0;
-                    everyone.Remove(c);
                 }
             }
-            Creature turncreature = everyone[1];
-            double duration = everyone[1].aspd;
+            everyone.RemoveAll(c => c.HP == 0);
+            Creature turncreature = everyone[0];
+            double duration = everyone[0].aspd;
             foreach (Creature c in everyone){
-                c.aspd-= duration;
+                c.aspd -= duration;
             }
             turncreature.battlecounter = turncreature.aspd;
             return turncreature;
@@ -70,16 +85,24 @@ namespace RPG
 
         void turn(Creature creature)
         {
-            if (creature.GetType() == new Hero("", 0, 0).GetType()) foreach (Creature c in everyone) if (c.GetType() == new Enemy("", 0, 0, 0).GetType())
-            {
-                c.damage(creature.Atk);
-                break;
-            }
-            else foreach (Creature d in everyone) if (d.GetType() == new Hero("", 0, 0).GetType())
-            {
-                d.damage(creature.Atk);
-                break;
-            }
+            if (creature.Type == "hero") foreach (Creature c in everyone)
+                {
+                    if (c.Type == "enemy")
+                    {
+                        c.damage(creature.Atk);
+                        Console.WriteLine("Creature " + creature.Name + " attacks! " + c.Name + " lost " + creature.Atk + " HP!");
+                        break;
+                    }
+                }
+            else foreach (Creature d in everyone)
+                {
+                    if (d.Type == "hero")
+                    {
+                        d.damage(creature.Atk);
+                        Console.WriteLine("Creature " + creature.Name + " attacks! " + d.Name + " lost " + creature.Atk + " HP!");
+                        break;
+                    }
+                }
         }
     }
 }

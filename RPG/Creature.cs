@@ -8,14 +8,15 @@ namespace RPG
 {
     class Creature
     {
-        string name;
+        string name, type;
         int attack, MaxHP, taunt = 1;
         public int HP;
         public double aspd;
-        public double battlecounter;
-        public Creature(string name, int HP, int attack, int aspd = 1)
+        public double battlecounter = 1;
+        public Creature(string name, int HP, int attack, int aspd = 1, string type = "creature")
         {
             this.name = name;
+            this.type = type;
             this.MaxHP = HP;
             this.aspd = aspd;
             this.HP = HP;
@@ -30,7 +31,10 @@ namespace RPG
         {
             get { return attack; }
         }
-
+        public string Type
+        {
+            get { return type; }
+        }
         public void damage(int amount)
         {
             HP -= amount;
@@ -42,16 +46,16 @@ namespace RPG
     }
     class Enemy : Creature
     {
-        public Enemy(string name, int HP, int attack, int aspd) : base(name, HP, attack, aspd)
+        public Enemy(string name, int HP, int attack, int aspd) : base(name, HP, attack, aspd, "enemy")
         {
-
+            
         }
     }
     class Hero : Creature
     {
-        public Hero(string name, int HP, int attack) : base(name, HP, attack)
+        public Hero(string name, int HP, int attack) : base(name, HP, attack, 1, "hero")
         {
-
+            
         }
     }
 }
