@@ -8,6 +8,7 @@ namespace RPG
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D testure;
 
         public RPGGame()
         {
@@ -24,6 +25,7 @@ namespace RPG
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            testure = Content.Load<Texture2D>("testure");
         }
 
         protected override void UnloadContent()
@@ -43,7 +45,16 @@ namespace RPG
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+            // Blank lines for readability
+
+
+            GraphicsDevice.Clear(Color.White);
+            spriteBatch.Draw(testure, Vector2.Zero, Color.White);
+
+
+            // Blank lines for readability
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
