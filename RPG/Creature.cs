@@ -8,6 +8,9 @@ namespace RPG
 {
     class Creature
     {
+        //TODO create class stats to be able to easily modify stats (temporary or permanent). 
+        //idea: "public Stats creaturestats;" instead of maxHP,aspd,defense,aggro,etc.
+        //items also have stats, method to easily add them, also method to change temporary 
         string name, type;
         int attack, MaxHP, taunt = 1;
         public int HP;
@@ -36,9 +39,13 @@ namespace RPG
         {
             battlecounter = aspd;
         }
+        
     }
     class Enemy : Creature
     {
+        droptemplate drops = new droptemplate();
+        //WIP maak een dropsystem; iets waardoor per enemy een rijtje standaarddrops met daarbij een kans kan worden meegegeven. 
+
         public Enemy(string name, int HP, int attack, int aspd) : base(name, HP, attack, aspd, "enemy")
         {
             

@@ -10,19 +10,25 @@ namespace RPG
     {
         public HashSet<turnlog> battlelog = new HashSet<turnlog>();
         double battletimer = 0;
+        bool finnished;
         List<Creature> heroes, enemies;
-        List<Creature> everyone;
+        public List<Creature> everyone;
         turnlog currentturn;
-        public Battle(List<Creature> heroes, List<Creature> enemies)
+        public Battle(List<Creature> heroes, List<Creature> enemies, double speedmodifier = 1)
         {
             this.heroes = heroes;
             this.enemies = enemies;
             everyone = createeveryone();
-            
+            //TODO zorg dat hier een timer gezet wordt die bijhoudt hoe lang het gevecht al aan de gang is, 
+            //zorg dat wanneer het gevecht beeindigd is met behulp van speedmodifier berekend wordt of hij afgelopen is.
         }
 
         public bool proceed()
         {
+            if(heroes.Count < 1 || enemies.Count < 1 || finnished)
+            {
+                return false;
+            }
             currentturn = new turnlog(heroes, enemies, 0, null, null, 0);
             Random rnd = new Random();
             everyone = everyone.OrderBy(c => rnd.Next()).ToList();
@@ -60,6 +66,11 @@ namespace RPG
                 enemy.enterbattle();
             }
             return combinedlist;
+        }
+        public double entirebattle()
+        {
+            while (proceed()) {}
+            return battletimer;
         }
         public void updatespeedluuk()
         {

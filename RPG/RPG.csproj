@@ -41,11 +41,16 @@
     <Compile Include="Battle.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Creature.cs" />
+    <Compile Include="droptemplate.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="InputHelper.cs" />
+    <Compile Include="inventory.cs" />
+    <Compile Include="inventoryslot.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="itemdrop.cs" />
+    <Compile Include="ongoingbattles.cs" />
     <Compile Include="RPGGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

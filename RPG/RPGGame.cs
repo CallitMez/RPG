@@ -7,6 +7,21 @@ namespace RPG
 {
     public class RPGGame : Game
     {
+
+
+
+
+        //TODO create gamestates in which you can see:
+        //a list of active battles(same page or different page for additional information)
+        //a list of enemies
+        //a list of own heroes
+        //a list of ended battles
+        //a list of items
+
+
+
+
+
         // Basics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
