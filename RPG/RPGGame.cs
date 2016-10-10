@@ -42,7 +42,7 @@ namespace RPG
             heroes.Add(anotherWarrior);
             enemies.Add(fish);
             anyBattle = new Battle(heroes, enemies);
-            anyBattle.proceed();
+            //anyBattle.proceed();
             // End battle stuff
 
             IsMouseVisible = true;
@@ -68,7 +68,7 @@ namespace RPG
             // Press escape to exit, will most likely have to be removed
             // at some point because we like to have an onscreen exit button
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            if (testButton.isClicked(inputHelper)) testButton.Move(new Point(200));
+            if (testButton.isClicked(inputHelper)) anyBattle.proceed();
 
             // Pass the Update into the base "Game" class
             base.Update(gameTime);

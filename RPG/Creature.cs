@@ -26,6 +26,15 @@ namespace RPG
         {
             get { return name; }
         }
+        public int Atk
+        {
+            get { return attack; }
+        }
+
+        public void damage(int amount)
+        {
+            HP -= amount;
+        }
         public void enterbattle()
         {
             battlecounter = aspd;

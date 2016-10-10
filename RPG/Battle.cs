@@ -32,13 +32,13 @@ namespace RPG
         {
 
             Creature currentcreature = updatespeed();
-            //turn(currentcreature);
+            turn(currentcreature);
 
             everyone = everyone.OrderBy(c => c.aspd).ToList();
             //everyone.Reverse();
             foreach (Creature c in everyone)
             {
-                Console.WriteLine(c.Name);
+                Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP.");
             }
             if (true)
             {
@@ -52,7 +52,7 @@ namespace RPG
         public Creature updatespeed()
         {
             everyone = everyone.OrderBy(c => c.aspd).ToList();
-            foreach(Creature c in everyone)
+            foreach (Creature c in everyone)
             {
                 if (c.HP <= 0){
                     c.HP = 0;
@@ -66,6 +66,20 @@ namespace RPG
             }
             turncreature.battlecounter = turncreature.aspd;
             return turncreature;
+        }
+
+        void turn(Creature creature)
+        {
+            if (creature.GetType() == new Hero("", 0, 0).GetType()) foreach (Creature c in everyone) if (c.GetType() == new Enemy("", 0, 0, 0).GetType())
+            {
+                c.damage(creature.Atk);
+                break;
+            }
+            else foreach (Creature d in everyone) if (d.GetType() == new Hero("", 0, 0).GetType())
+            {
+                d.damage(creature.Atk);
+                break;
+            }
         }
     }
 }

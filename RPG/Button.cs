@@ -27,7 +27,6 @@ namespace RPG
         {
             if (inputHelper.MouseLeftButtonPressed())
             {
-                Console.WriteLine("CLick");
                 if (size.Contains(inputHelper.MousePosition.X, inputHelper.MousePosition.Y))
                 {
                     return true;
