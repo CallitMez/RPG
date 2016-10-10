@@ -9,8 +9,10 @@ namespace RPG
     class Creature
     {
         string name;
-        int attack, HP, MaxHP, taunt = 1;
-        public int aspd;
+        int attack, MaxHP, taunt = 1;
+        public int HP;
+        public double aspd;
+        public double battlecounter;
         public Creature(string name, int HP, int attack, int aspd = 1)
         {
             this.name = name;
@@ -23,6 +25,10 @@ namespace RPG
         public string Name
         {
             get { return name; }
+        }
+        public void enterbattle()
+        {
+            battlecounter = aspd;
         }
     }
     class Enemy : Creature
