@@ -8,33 +8,29 @@ namespace RPG
 {
     class Battle
     {
-        double battletimer = 1;
+        HashSet<turnlog> battlelog = new HashSet<turnlog>();
+        double battletimer = 0;
         List<Creature> heroes, enemies;
-        List<Creature> everyone = new List<Creature>();
+        List<Creature> everyone;
+        turnlog currentturn;
         public Battle(List<Creature> heroes, List<Creature> enemies)
         {
             this.heroes = heroes;
             this.enemies = enemies;
+            everyone = createeveryone();
             
-            foreach (Hero hero in heroes)
-            {
-                everyone.Add(hero);
-                hero.enterbattle();
-            }
-            foreach (Enemy enemy in enemies)
-            {
-                everyone.Add(enemy);
-                enemy.enterbattle();
-            }
         }
 
         public bool proceed()
         {
+            currentturn = new turnlog(heroes, enemies, 0, null, null, 0);
             Random rnd = new Random();
             everyone = everyone.OrderBy(c => rnd.Next()).ToList();
-            /*Creature currentcreature = updatespeed();
-            turn(currentcreature);*/
-            updatespeed();
+            Creature currentcreature = updatespeed();
+            currentturn.attacker = currentcreature;
+            currentturn.battletimer = battletimer;
+            turn(currentcreature);
+            //updatespeed();
 
             everyone = everyone.OrderBy(c => c.Name).ToList();
             //everyone.Reverse();
@@ -42,20 +38,28 @@ namespace RPG
             {
                 Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP and " + c.battlecounter + " aspd.");
             }
-            if (true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (heroes.Count > 0 && enemies.Count > 0);
+           
         }
-        public void updatespeed()
+        private List<Creature> createeveryone()
+        {
+            List<Creature> combinedlist = new List<Creature>();
+            foreach (Creature hero in heroes)
+            {
+                combinedlist.Add(hero);
+                hero.enterbattle();
+            }
+            foreach (Creature enemy in enemies)
+            {
+                combinedlist.Add(enemy);
+                enemy.enterbattle();
+            }
+            return combinedlist;
+        }
+        public void updatespeedluuk()
         {
             everyone = everyone.OrderBy(c => c.aspd).ToList();
-            foreach (Creature c in everyone) if (c.HP <= 0) c.HP = 0;
-            everyone.RemoveAll(c => c.HP == 0);
+            removedead();
             battletimer += 1;
             foreach (Creature c in everyone)
             {
@@ -65,26 +69,29 @@ namespace RPG
                 }
             }
         }
-        public Creature updatespeedOldAndFailed()
+        void removedead()
         {
-            everyone = everyone.OrderBy(c => c.aspd).ToList();
-            foreach (Creature c in everyone)
-            {
-                if (c.HP <= 0){
-                    c.HP = 0;
-                }
-            }
+            foreach (Creature c in everyone) if (c.HP <= 0) c.HP = 0;
             everyone.RemoveAll(c => c.HP == 0);
+            heroes.RemoveAll(c => c.HP == 0);
+            enemies.RemoveAll(c => c.HP == 0);
+
+        }
+        public Creature updatespeed()
+        {
+            everyone = everyone.OrderBy(c => c.battlecounter).ToList();
+            removedead();
             Creature turncreature = everyone[0];
             double duration = everyone[0].battlecounter;
             foreach (Creature c in everyone){
                 c.battlecounter -= duration;
             }
+            battletimer += duration;
             turncreature.battlecounter = turncreature.aspd;
             return turncreature;
         }
 
-        void turn(Creature creature)
+        /*void turn(Creature creature)
         {
             everyone = everyone.OrderBy(c => c.Hate).ToList();
             if (creature.Type == "hero") foreach (Creature c in everyone)
@@ -105,6 +112,30 @@ namespace RPG
                         break;
                     }
                 }
+        }
+        */
+        void turn(Creature creature)
+        {
+            int damage;
+            Creature defender;
+            if (heroes.Contains(creature)){
+                enemies = enemies.OrderBy(c => c.Hate).ToList();
+                defender = enemies[0];
+                damage = creature.Atk;
+                defender.damage(damage);
+                Console.WriteLine("Creature " + creature.Name + " attacks! " + d.Name + " lost " + creature.Atk + " HP!");
+                    
+            }
+            else{
+                heroes = heroes.OrderBy(c => c.Hate).ToList();
+                defender = heroes[0];
+                damage = creature.Atk;
+                defender.damage(damage);
+                Console.WriteLine("Creature " + creature.Name + " attacks! " + d.Name + " lost " + creature.Atk + " HP!");
+                    
+            }
+            currentturn.defender = defender;
+            currentturn.damage = damage;
         }
     }
 }
