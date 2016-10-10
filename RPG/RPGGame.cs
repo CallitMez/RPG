@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPG
 {
-    public class Game1 : Game
+    public class RPGGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1()
+        public RPGGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
