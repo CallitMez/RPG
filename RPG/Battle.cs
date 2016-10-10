@@ -16,13 +16,20 @@ namespace RPG
             this.enemies = enemies;
         }
 
-        bool proceed()
+        public bool proceed()
         {
+            List<Creature> everyone = enemies;
             foreach (Hero hero in heroes)
             {
-                enemies;
+                everyone.Add(hero);
             }
-            if ()
+            everyone = everyone.OrderBy(c => c.aspd).ToList();
+            everyone.Reverse();
+            foreach (Creature c in everyone)
+            {
+                Console.WriteLine(c.Name);
+            }
+            if (true)
             {
                 return true;
             }

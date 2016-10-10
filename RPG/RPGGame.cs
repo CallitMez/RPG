@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace RPG
 {
@@ -10,8 +11,9 @@ namespace RPG
         SpriteBatch spriteBatch;
         Texture2D testure;
         Hero warrior;
+        Hero anotherWarrior;
         Enemy fish;
-
+        Battle anyBattle;
         public RPGGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -22,6 +24,16 @@ namespace RPG
          :/ sorry human beings relying on my expertise*/
         protected override void Initialize()
         {
+            warrior = new Hero("Warrior", 10, 1);
+            anotherWarrior = new Hero("Warrior2", 10, 1);
+            fish = new Enemy("Fish", 10, 1, 3);
+            List<Creature> heroes = new List<Creature>();
+            List<Creature> enemies = new List<Creature>();
+            heroes.Add(warrior);
+            heroes.Add(anotherWarrior);
+            enemies.Add(fish);
+            anyBattle = new Battle(heroes, enemies);
+            anyBattle.proceed();
             base.Initialize();
         }
 
