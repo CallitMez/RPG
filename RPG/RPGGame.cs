@@ -15,6 +15,7 @@ namespace RPG
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
+
         /*I'm trying to make sense of this Initialize stuff but idk what it does
          :/ sorry human beings relying on my expertise*/
         protected override void Initialize()
@@ -25,6 +26,7 @@ namespace RPG
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            FileManager f = new FileManager();
             testure = Content.Load<Texture2D>("testure");
         }
 

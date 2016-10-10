@@ -1,0 +1,9 @@
+﻿# Name:
+Warrior
+# Base Stats:
+## HP:
+ 10
+## Attack:
+ 1
+# Spriteset:
+warriorSprite

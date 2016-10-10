@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Enemy.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="RPGGame.cs" />
@@ -54,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Heroes\Warrior.txt" />
+    <Content Include="Data\savedata.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
