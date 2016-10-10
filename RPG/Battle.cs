@@ -10,7 +10,7 @@ namespace RPG
     {
         int round = 1;
         List<Creature> heroes, enemies;
-        List<Creature> everyone;
+        List<Creature> everyone = new List<Creature>();
         public Battle(List<Creature> heroes, List<Creature> enemies)
         {
             this.heroes = heroes;
@@ -21,7 +21,7 @@ namespace RPG
                 everyone.Add(hero);
                 hero.enterbattle();
             }
-            foreach (Hero enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 everyone.Add(enemy);
                 enemy.enterbattle();
@@ -32,7 +32,7 @@ namespace RPG
         {
 
             Creature currentcreature = updatespeed();
-            turn(currentcreature);
+            //turn(currentcreature);
 
             everyone = everyone.OrderBy(c => c.aspd).ToList();
             //everyone.Reverse();

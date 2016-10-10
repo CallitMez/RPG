@@ -39,10 +39,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Battle.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Hero.cs" />
+    <Compile Include="InputHelper.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="RPGGame.cs" />
     <Compile Include="Program.cs" />

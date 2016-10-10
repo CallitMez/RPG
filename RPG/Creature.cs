@@ -40,7 +40,6 @@ namespace RPG
     }
     class Hero : Creature
     {
-        int attack, HP;
         public Hero(string name, int HP, int attack) : base(name, HP, attack)
         {
 
