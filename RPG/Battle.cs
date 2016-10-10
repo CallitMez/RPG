@@ -36,7 +36,7 @@ namespace RPG
             turn(currentcreature);*/
             updatespeed();
 
-            everyone = everyone.OrderBy(c => c.aspd).ToList();
+            everyone = everyone.OrderBy(c => c.Name).ToList();
             //everyone.Reverse();
             foreach (Creature c in everyone)
             {
@@ -76,9 +76,9 @@ namespace RPG
             }
             everyone.RemoveAll(c => c.HP == 0);
             Creature turncreature = everyone[0];
-            double duration = everyone[0].aspd;
+            double duration = everyone[0].battlecounter;
             foreach (Creature c in everyone){
-                c.aspd -= duration;
+                c.battlecounter -= duration;
             }
             turncreature.battlecounter = turncreature.aspd;
             return turncreature;
