@@ -68,7 +68,8 @@ namespace RPG
             // Press escape to exit, will most likely have to be removed
             // at some point because we like to have an onscreen exit button
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            if (testButton.isClicked(inputHelper)) anyBattle.proceed();
+            while (anyBattle.proceed()) { }
+            if (testButton.isClicked(inputHelper)) foreach (turnlog turn in anyBattle.battlelog) System.Console.WriteLine(turn.Print());
 
             // Pass the Update into the base "Game" class
             base.Update(gameTime);

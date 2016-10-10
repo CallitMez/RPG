@@ -8,7 +8,7 @@ namespace RPG
 {
     class Battle
     {
-        HashSet<turnlog> battlelog = new HashSet<turnlog>();
+        public HashSet<turnlog> battlelog = new HashSet<turnlog>();
         double battletimer = 0;
         List<Creature> heroes, enemies;
         List<Creature> everyone;
@@ -29,15 +29,20 @@ namespace RPG
             Creature currentcreature = updatespeed();
             currentturn.attacker = currentcreature;
             currentturn.battletimer = battletimer;
-            turn(currentcreature);
+            if (enemies.Count > 0)
+            {
+                turn(currentcreature);
+                battlelog.Add(currentturn);
+            }
             //updatespeed();
 
             everyone = everyone.OrderBy(c => c.Name).ToList();
             //everyone.Reverse();
             foreach (Creature c in everyone)
             {
-                Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP and " + c.battlecounter + " aspd.");
+                //Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP and " + c.battlecounter + " aspd.");
             }
+
             return (heroes.Count > 0 && enemies.Count > 0);
            
         }
@@ -123,7 +128,7 @@ namespace RPG
                 defender = enemies[0];
                 damage = creature.Atk;
                 defender.damage(damage);
-                Console.WriteLine("Creature " + creature.Name + " attacks! " + d.Name + " lost " + creature.Atk + " HP!");
+                //Console.WriteLine("Creature " + creature.Name + " attacks! " + defender.Name + " lost " + creature.Atk + " HP!");
                     
             }
             else{
@@ -131,7 +136,7 @@ namespace RPG
                 defender = heroes[0];
                 damage = creature.Atk;
                 defender.damage(damage);
-                Console.WriteLine("Creature " + creature.Name + " attacks! " + d.Name + " lost " + creature.Atk + " HP!");
+                //Console.WriteLine("Creature " + creature.Name + " attacks! " + defender.Name + " lost " + creature.Atk + " HP!");
                     
             }
             currentturn.defender = defender;

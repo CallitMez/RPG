@@ -26,6 +26,16 @@ namespace RPG
             this.damage = damage;
         }
 
-
+        public string Print()
+        {
+            string ret = "";
+            ret += "Currently in battle: ";
+            foreach (Creature hero in heroes) ret += hero.Name + ", ";
+            foreach (Creature enemy in enemies) ret += enemy.Name + ", ";
+            ret += "\nThis turn " + attacker.Name + " fought with " + defender.Name;
+            ret += "\nHe did " + damage + " damage total, bringing " + defender.Name + " from " + (defender.HP + damage) + " to " + defender.HP;
+            ret += "\nCurrent battle time: " + battletimer;
+            return ret;
+        }
     }
 }
