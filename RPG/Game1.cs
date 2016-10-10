@@ -14,7 +14,8 @@ namespace RPG
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-
+        /*I'm trying to make sense of this Initialize stuff but idk what it does
+         :/ sorry human beings relying on my expertise*/
         protected override void Initialize()
         {
             base.Initialize();
@@ -27,7 +28,7 @@ namespace RPG
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            // What content is there to be unloaded?
         }
 
         protected override void Update(GameTime gameTime)
