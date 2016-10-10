@@ -8,5 +8,10 @@ namespace RPG
 {
     class Screen
     {
+        string name;
+        public Screen(string name)
+        {
+            this.name = name;
+        }
     }
 }

@@ -8,5 +8,10 @@ namespace RPG
 {
     class Item
     {
+        string name;
+        public Item(string name)
+        {
+            this.name = name;
+        }
     }
 }

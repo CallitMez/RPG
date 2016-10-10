@@ -8,5 +8,10 @@ namespace RPG
 {
     class Hero
     {
+        string name;
+        public Hero(string name)
+        {
+            this.name = name;
+        }
     }
 }
