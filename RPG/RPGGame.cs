@@ -9,6 +9,8 @@ namespace RPG
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D testure;
+        Hero warrior;
+        Enemy fish;
 
         public RPGGame()
         {

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class Hero
+    /*class Hero : Creature
     {
-        string name;
-        public Hero(string name)
+        int attack, HP;
+        public Hero(string name, int HP, int attack) : base(name)
         {
-            this.name = name;
+            
         }
-    }
+    }*/
 }
