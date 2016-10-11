@@ -61,16 +61,18 @@ namespace RPG
             return (!finnished);
 
         }
+
         public void writelog()
         {
             foreach (turnlog turn in battlelog) System.Console.WriteLine(turn.Print());
         }
+
         public bool update(GameTime gametime)
         {
             everyone = everyone.OrderBy(c => c.battlecounter).ToList();
             removedead();
             Creature turncreature = everyone[0];
-            elapsedtime+=gametime.ElapsedGameTime.TotalMinutes;
+            elapsedtime += gametime.ElapsedGameTime.TotalMinutes;
             if (turncreature.battlecounter*speedmodifier<elapsedtime)
             {
                 elapsedtime = 0;
@@ -78,6 +80,7 @@ namespace RPG
             }
             return false;
         }
+
         private List<Creature> createeveryone()
         {
             List<Creature> combinedlist = new List<Creature>();
@@ -93,11 +96,13 @@ namespace RPG
             }
             return combinedlist;
         }
+
         public double entirebattle()
         {
             while (proceed()) {}
             return battletimer;
         }
+
         public void updatespeedluuk()
         {
             everyone = everyone.OrderBy(c => c.aspd).ToList();
@@ -111,6 +116,7 @@ namespace RPG
                 }
             }
         }
+
         void removedead()
         {
             foreach (Creature c in everyone) if (c.HP <= 0) c.HP = 0;
@@ -119,6 +125,7 @@ namespace RPG
             enemies.RemoveAll(c => c.HP == 0);
 
         }
+
         public Creature updatespeed()
         {
             everyone = everyone.OrderBy(c => c.battlecounter).ToList();
@@ -178,6 +185,12 @@ namespace RPG
             }
             currentturn.defender = defender;
             currentturn.damage = damage;
+        }
+
+        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
+        {
+            spriteBatch.DrawString(font, "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(font, "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", new Vector2(0, 200), Color.Black);
         }
     }
 }

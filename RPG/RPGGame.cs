@@ -28,10 +28,9 @@ namespace RPG
 
         // Sprites
         Texture2D testure;
-
+        SpriteFont font;
         // Battle stuff
         Hero warrior;
-        Hero anotherWarrior;
         Enemy fish;
         Battle anyBattle;
 
@@ -49,12 +48,10 @@ namespace RPG
         {
             // Battle stuff
             warrior = new Hero("Warrior", 10, 1);
-            anotherWarrior = new Hero("Warrior2", 10, 1);
             fish = new Enemy("Fish", 10, 1, 3);
             List<Creature> heroes = new List<Creature>();
             List<Creature> enemies = new List<Creature>();
             heroes.Add(warrior);
-            heroes.Add(anotherWarrior);
             enemies.Add(fish);
             anyBattle = new Battle(heroes, enemies);
             ongoingbattles.ongoingbattlelist.Add(anyBattle);
@@ -68,6 +65,7 @@ namespace RPG
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("font");
             FileManager f = new FileManager();
             testure = Content.Load<Texture2D>("testure");
             testButton = new Button(new Rectangle(new Point(50), new Point(16)), testure);
@@ -101,6 +99,7 @@ namespace RPG
 
             GraphicsDevice.Clear(Color.White);
             testButton.Draw(spriteBatch);
+            anyBattle.Draw(spriteBatch, font);
 
 
             // Blank lines for readability
