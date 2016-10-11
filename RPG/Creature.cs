@@ -54,13 +54,13 @@ namespace RPG
         {
             
         }
-
+        //TODO Long term: sort the enemies in worlds.
     }
     class Hero : Creature
     {
         public Hero(string name, int HP, int attack) : base(name, HP, attack, 1.5, "hero")
         {
             
-        }
+        }//TODO add level system
     }
 }
