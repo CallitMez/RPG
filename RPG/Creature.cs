@@ -50,7 +50,7 @@ namespace RPG
     {
         droptemplate drops = new droptemplate();
 
-        public Enemy(string name, int HP, int attack, int aspd) : base(name, HP, attack, aspd, "enemy")
+        public Enemy(string name, int HP, int attack, double aspd) : base(name, HP, attack, aspd, "enemy")
         {
             
         }
@@ -58,7 +58,7 @@ namespace RPG
     }
     class Hero : Creature
     {
-        public Hero(string name, int HP, int attack) : base(name, HP, attack, 0.1, "hero")
+        public Hero(string name, int HP, int attack, double aspd = 0.3) : base(name, HP, attack,aspd, "hero")
         {
             
         }//TODO add level system

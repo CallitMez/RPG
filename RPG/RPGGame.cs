@@ -32,7 +32,10 @@ namespace RPG
         // Battle stuff
         Hero warrior;
         Enemy fish;
+        Hero noob;
+        Enemy karp;
         Battle anyBattle;
+        Battle secondbattle;
 
         // Input
         InputHelper inputHelper = new InputHelper();
@@ -48,13 +51,23 @@ namespace RPG
         {
             // Battle stuff
             warrior = new Hero("Warrior", 10, 1);
-            fish = new Enemy("Fish", 10, 1, 3);
+            fish = new Enemy("Fish", 10, 1, 0.3);
             List<Creature> heroes = new List<Creature>();
             List<Creature> enemies = new List<Creature>();
             heroes.Add(warrior);
             enemies.Add(fish);
             anyBattle = new Battle(heroes, enemies);
             ongoingbattles.ongoingbattlelist.Add(anyBattle);
+
+            noob = new Hero("Piet", 150, 10,0.009);
+            karp = new Enemy("Karp", 100, 10, 0.01);
+            List<Creature> noobs = new List<Creature>();
+            List<Creature> fishes = new List<Creature>();
+            noobs.Add(noob);
+            fishes.Add(karp);
+            secondbattle = new Battle(noobs,fishes);
+            ongoingbattles.ongoingbattlelist.Add(secondbattle);
+
             //anyBattle.proceed();
             // End battle stuff
 
@@ -83,7 +96,11 @@ namespace RPG
             // at some point because we like to have an onscreen exit button
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //while (anyBattle.proceed()) { }
-            if (testButton.isClicked(inputHelper)) anyBattle.writelog();
+            if (testButton.isClicked(inputHelper))
+            {
+                anyBattle.writelog();
+                anyBattle.proceed();
+            }
 
             // Pass the Update into the base "Game" class
             ongoingbattles.update(gameTime);
@@ -99,7 +116,8 @@ namespace RPG
 
             GraphicsDevice.Clear(Color.White);
             testButton.Draw(spriteBatch);
-            anyBattle.Draw(spriteBatch, font);
+            ongoingbattles.draw(spriteBatch,font);
+
 
 
             // Blank lines for readability

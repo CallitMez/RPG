@@ -34,30 +34,21 @@ namespace RPG
 
         public bool proceed()
         {
-            if (heroes.Count < 1 || enemies.Count < 1 || finnished)
-            {
-                return false;
-            }
+
             currentturn = new turnlog(heroes, enemies, 0, null, null, 0);
             Random rnd = new Random();
             everyone = everyone.OrderBy(c => rnd.Next()).ToList();
             Creature currentcreature = updatespeed();
             currentturn.attacker = currentcreature;
             currentturn.battletimer = battletimer;
-            if (enemies.Count > 0)
-            {
-                turn(currentcreature);
-                battlelog.Add(currentturn);
-            }
-            //updatespeed();
+            
+            turn(currentcreature);
+            battlelog.Add(currentturn);
+         
+            //-------------------------------------------------------------------------------------------------------------------------------
 
             everyone = everyone.OrderBy(c => c.Name).ToList();
-            //everyone.Reverse();
-            foreach (Creature c in everyone)
-            {
-                //Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP and " + c.battlecounter + " aspd.");
-            }
-            finnished = !(heroes.Count > 0 && enemies.Count > 0);
+            finnished = (heroes.Count <= 0 || enemies.Count <= 0);
             return (!finnished);
 
         }
@@ -78,7 +69,7 @@ namespace RPG
                 elapsedtime = 0;
                 return proceed();
             }
-            return false;
+            return true;
         }
 
         private List<Creature> createeveryone()
@@ -187,10 +178,12 @@ namespace RPG
             currentturn.damage = damage;
         }
 
-        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
+
+        public void Draw(SpriteBatch spriteBatch, SpriteFont font, int x)
         {
-            spriteBatch.DrawString(font, "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", Vector2.Zero, Color.Black);
-            spriteBatch.DrawString(font, "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", new Vector2(0, 200), Color.Black);
+            spriteBatch.DrawString(font, "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", new Vector2(x, 0), Color.Black);
+            spriteBatch.DrawString(font, "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", new Vector2(x, 200), Color.Black);
+            spriteBatch.DrawString(font, "Elapsed time " + elapsedtime, new Vector2(x, 300), Color.Black);
         }
     }
 }
