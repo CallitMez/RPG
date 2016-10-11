@@ -1,5 +1,5 @@
 # RPG
 Writing an RPG with my bud
 
-# Todo (ASAP)
-- Create classes.. Like C# ones, not RPG ones
+# TODO
+- Think of a way to be able to scroll through things
