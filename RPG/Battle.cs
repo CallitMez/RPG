@@ -14,13 +14,14 @@ namespace RPG
         List<Creature> heroes, enemies;
         public List<Creature> everyone;
         turnlog currentturn;
-        public Battle(List<Creature> heroes, List<Creature> enemies, double speedmodifier = 1)
+        public Battle(List<Creature> heroes, List<Creature> enemies, double speedmodifier = 1)//TODO vang droptemplate af (standaard 0)
         {
             this.heroes = heroes;
             this.enemies = enemies;
             everyone = createeveryone();
             //TODO zorg dat hier een timer gezet wordt die bijhoudt hoe lang het gevecht al aan de gang is, 
-            //zorg dat wanneer het gevecht beeindigd is met behulp van speedmodifier berekend wordt of hij afgelopen is.
+            //zorg dat wanneer het gevecht beeindigd is(qua rekenwerk) 
+            //met behulp van speedmodifier berekend wordt of hij afgelopen is. (speedmodifier*battletimer (minuten))
         }
 
         public bool proceed()

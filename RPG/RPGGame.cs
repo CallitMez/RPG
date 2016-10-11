@@ -15,7 +15,7 @@ namespace RPG
         //a list of active battles(same page or different page for additional information)
         //a list of enemies
         //a list of own heroes
-        //a list of ended battles
+        //a list of ended battles (maybe combine with active ones)
         //a list of items
 
 

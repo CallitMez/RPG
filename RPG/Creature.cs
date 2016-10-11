@@ -39,7 +39,12 @@ namespace RPG
         {
             battlecounter = aspd;
         }
-        
+        public void fight(List<Creature> opponents)
+        {
+            List<Creature> thisenemy = new List<Creature>();
+            thisenemy.Add(this);
+            ongoingbattles.ongoingbattlelist.Add(new Battle(opponents, thisenemy));//WIP droptemplate moet nog toegevoegd aan battle, iig bij enemies
+        }
     }
     class Enemy : Creature
     {
@@ -50,6 +55,7 @@ namespace RPG
         {
             
         }
+
     }
     class Hero : Creature
     {

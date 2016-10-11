@@ -8,7 +8,7 @@ namespace RPG
 {
     class ongoingbattles
     {
-        static List<Battle> ongoingbattlelist = new List<Battle>();
+        static public List<Battle> ongoingbattlelist = new List<Battle>();
 
         static public bool checkifoccupied(Creature creature)
         {
@@ -23,7 +23,7 @@ namespace RPG
         static public void draw()
         {
             //TODO make a function that draws the ongoing battles, clickable so you can see their status
-           
+            //TODO make a class and function that stores old battles
         }
 
     }
