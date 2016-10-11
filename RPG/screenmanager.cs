@@ -6,19 +6,26 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 
 namespace RPG
 {
     class screenmanager
     {
-        List<Screen> screenlist = new List<Screen>();
-        battlescreen Battlescreen = new battlescreen();
-        int selected = 0;
+        static public Screen Battlescreen = new battlescreen();
+        static public Screen Menuscreen = new menuscreen();
+        static public Screen Inventoryscreen = new inventoryscreen();
+        static public Screen Heroscreen = new heroscreen();
+        static public Screen Questscreen = new questscreen();
+        static public List<Screen> screenlist = new List<Screen>();
+        static int selected = 0;
         public screenmanager()
         {
-            battlescreen Battlescreen = new battlescreen();
             screenlist.Add(Battlescreen);
+            screenlist.Add(Menuscreen);
+            screenlist.Add(Inventoryscreen);
+            screenlist.Add(Questscreen);
+            screenlist.Add(Heroscreen);
+
         }
         public void loadcontent()
         {
@@ -37,6 +44,10 @@ namespace RPG
             {
                 s.update(gameTime);
             }
+        }
+        static public void selectscreen(Screen screen)
+        {
+            selected = screenlist.IndexOf(screen);
         }
     }
 }

@@ -8,22 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 
-
 namespace RPG
 {
-    class Screen
+    class questscreen : Screen
     {
-        public void loadcontent()
-        {
-
-        }
-        public void draw(SpriteBatch spriteBatch)
-        {
-
-        }
-        public void update(GameTime gameTime)
-        {
-
-        }
     }
 }
