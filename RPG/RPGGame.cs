@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
+using System.IO;
 namespace RPG
 {
     public class RPGGame : Game
@@ -39,6 +39,8 @@ namespace RPG
         InputHelper inputHelper = new InputHelper();
         Button testButton;
 
+        // File management
+        FileManager f = new FileManager();
         public RPGGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -67,7 +69,8 @@ namespace RPG
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            FileManager f = new FileManager();
+            //string WarriorTextFile = f.readFile(f.openFile("Heroes\\Warrior.txt"));
+            System.Console.WriteLine(f.readFile(f.openFile("Heroes\\Warrior.txt")));
             testure = Content.Load<Texture2D>("testure");
             testButton = new Button(new Rectangle(new Point(50), new Point(16)), testure);
         }
