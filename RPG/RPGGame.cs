@@ -79,7 +79,7 @@ namespace RPG
 
         protected override void LoadContent()
         {
-            screens.loadcontent();
+            screens.loadcontent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
             FileManager f = new FileManager();
@@ -97,7 +97,7 @@ namespace RPG
             inputHelper.Update(gameTime);
             // Press escape to exit, will most likely have to be removed
             // at some point because we like to have an onscreen exit button
-            screens.update(gameTime);
+            screens.update(gameTime, inputHelper);
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //while (anyBattle.proceed()) { }
             if (testButton.isClicked(inputHelper))
@@ -117,13 +117,12 @@ namespace RPG
            
             spriteBatch.Begin();
             // Blank lines for readability
-            screens.draw(spriteBatch);
+            screens.draw(spriteBatch, GraphicsDevice);
             
             
-            GraphicsDevice.Clear(Color.White);
-            testButton.Draw(spriteBatch);
-            ongoingbattles.draw(spriteBatch,font);
-
+            //GraphicsDevice.Clear(Color.White);
+            //testButton.Draw(spriteBatch);
+            //ongoingbattles.draw(spriteBatch,font);
 
 
             // Blank lines for readability

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -27,22 +28,22 @@ namespace RPG
             screenlist.Add(Heroscreen);
 
         }
-        public void loadcontent()
+        public void loadcontent(ContentManager Content)
         {
             foreach(Screen s in screenlist)
             {
-                s.loadcontent();
+                s.loadcontent(Content);
             }
         }
-        public void draw(SpriteBatch spriteBatch)
+        public void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            screenlist[selected].draw(spriteBatch);
+            screenlist[selected].draw(spriteBatch, graphicsDevice);
         }
-        public void update(GameTime gameTime)
+        public void update(GameTime gameTime, InputHelper inputHelper)
         {
             foreach (Screen s in screenlist)
             {
-                s.update(gameTime);
+                s.update(gameTime, inputHelper);
             }
         }
         static public void selectscreen(Screen screen)
