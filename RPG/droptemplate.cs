@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
+
+    // Yknow I had a good idea for the drops and other data storage (you know what I mean,
+    // .txt files FTW) and I'll most likely be working on that, until then I'd prefer to
+    // have a game without drops and stuff...
     class droptemplate
     {
         //TODO add something for multiple drops of same item
