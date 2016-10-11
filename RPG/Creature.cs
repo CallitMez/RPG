@@ -58,7 +58,7 @@ namespace RPG
     }
     class Hero : Creature
     {
-        public Hero(string name, int HP, int attack) : base(name, HP, attack, 1.5, "hero")
+        public Hero(string name, int HP, int attack) : base(name, HP, attack, 0.1, "hero")
         {
             
         }//TODO add level system

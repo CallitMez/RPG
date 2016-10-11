@@ -57,6 +57,7 @@ namespace RPG
             heroes.Add(anotherWarrior);
             enemies.Add(fish);
             anyBattle = new Battle(heroes, enemies);
+            ongoingbattles.ongoingbattlelist.Add(anyBattle);
             //anyBattle.proceed();
             // End battle stuff
 
@@ -83,12 +84,14 @@ namespace RPG
             // Press escape to exit, will most likely have to be removed
             // at some point because we like to have an onscreen exit button
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            while (anyBattle.proceed()) { }
-            if (testButton.isClicked(inputHelper)) foreach (turnlog turn in anyBattle.battlelog) System.Console.WriteLine(turn.Print());
+            //while (anyBattle.proceed()) { }
+            if (testButton.isClicked(inputHelper)) anyBattle.writelog();
 
             // Pass the Update into the base "Game" class
+            ongoingbattles.update(gameTime);
             base.Update(gameTime);
         }
+
 
         protected override void Draw(GameTime gameTime)
         {

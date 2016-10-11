@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace RPG
 {
     class ongoingbattles
     {
         static public List<Battle> ongoingbattlelist = new List<Battle>();
+        static public List<Battle> finnishedbattlelist = new List<Battle>();
 
         static public bool checkifoccupied(Creature creature)
         {
@@ -19,6 +23,21 @@ namespace RPG
                     sofar = true;
             }
             return sofar;
+        }
+        static public void update(GameTime gametime)
+        {
+            foreach (Battle b in ongoingbattlelist)
+                if (b.update(gametime))
+                {
+                    finnishedbattlelist.Add(b);
+                }
+            foreach(Battle b in finnishedbattlelist)
+            {
+                if (ongoingbattlelist.Contains(b))
+                {
+                    ongoingbattlelist.Remove(b);
+                }
+            }
         }
         static public void draw()
         {

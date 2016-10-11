@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace RPG
 {
@@ -14,11 +18,15 @@ namespace RPG
         List<Creature> heroes, enemies;
         public List<Creature> everyone;
         turnlog currentturn;
+        double elapsedtime = 0;
+        double speedmodifier;
         public Battle(List<Creature> heroes, List<Creature> enemies, double speedmodifier = 1)//TODO vang droptemplate af (standaard 0)
         {
             this.heroes = heroes;
             this.enemies = enemies;
+            this.speedmodifier = speedmodifier;
             everyone = createeveryone();
+            
             //TODO zorg dat hier een timer gezet wordt die bijhoudt hoe lang het gevecht al aan de gang is, 
             //zorg dat wanneer het gevecht beeindigd is(qua rekenwerk) 
             //met behulp van speedmodifier berekend wordt of hij afgelopen is. (speedmodifier*battletimer (minuten))
@@ -26,7 +34,7 @@ namespace RPG
 
         public bool proceed()
         {
-            if(heroes.Count < 1 || enemies.Count < 1 || finnished)
+            if (heroes.Count < 1 || enemies.Count < 1 || finnished)
             {
                 return false;
             }
@@ -49,9 +57,26 @@ namespace RPG
             {
                 //Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP and " + c.battlecounter + " aspd.");
             }
+            finnished = !(heroes.Count > 0 && enemies.Count > 0);
+            return (!finnished);
 
-            return (heroes.Count > 0 && enemies.Count > 0);
-           
+        }
+        public void writelog()
+        {
+            foreach (turnlog turn in battlelog) System.Console.WriteLine(turn.Print());
+        }
+        public bool update(GameTime gametime)
+        {
+            everyone = everyone.OrderBy(c => c.battlecounter).ToList();
+            removedead();
+            Creature turncreature = everyone[0];
+            elapsedtime+=gametime.ElapsedGameTime.TotalMinutes;
+            if (turncreature.battlecounter*speedmodifier<elapsedtime)
+            {
+                elapsedtime = 0;
+                return proceed();
+            }
+            return false;
         }
         private List<Creature> createeveryone()
         {
