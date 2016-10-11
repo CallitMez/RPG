@@ -49,7 +49,6 @@ namespace RPG
     class Enemy : Creature
     {
         droptemplate drops = new droptemplate();
-        //WIP maak een dropsystem; iets waardoor per enemy een rijtje standaarddrops met daarbij een kans kan worden meegegeven. 
 
         public Enemy(string name, int HP, int attack, int aspd) : base(name, HP, attack, aspd, "enemy")
         {
