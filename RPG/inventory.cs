@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class Screen
+    class inventory
     {
-        string name;
-        public Screen(string name)
-        {
-            this.name = name;
-        }
+        List<inventoryslot> Contentlist= new List<inventoryslot>();
+            //TODO everything :P but firstly a draw function
     }
 }

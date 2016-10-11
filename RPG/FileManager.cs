@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class Screen
+    class FileManager
     {
-        string name;
-        public Screen(string name)
+        string path;
+        public FileManager()
         {
-            this.name = name;
+            path = System.IO.Path.GetFullPath(@"Enemy.cs");
+            Console.WriteLine(path);
         }
     }
 }

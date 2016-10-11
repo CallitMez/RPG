@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    /*class Enemy : Creature
+    class inventoryslot
     {
-        public Enemy(string name) : base(name)
-        {
-            
-        }
-    }*/
+        Item item;
+        int amount;
+    }
 }
