@@ -61,7 +61,7 @@ namespace RPG
         public bool update(GameTime gametime)
         {
             everyone = everyone.OrderBy(c => c.battlecounter).ToList();
-            removedead();
+            //removedead();
             Creature turncreature = everyone[0];
             elapsedtime += gametime.ElapsedGameTime.TotalMinutes;
             if (turncreature.battlecounter*speedmodifier<elapsedtime)
@@ -69,7 +69,7 @@ namespace RPG
                 elapsedtime = 0;
                 return proceed();
             }
-            return true;
+            return !finnished;
         }
 
         private List<Creature> createeveryone()
@@ -97,7 +97,7 @@ namespace RPG
         public void updatespeedluuk()
         {
             everyone = everyone.OrderBy(c => c.aspd).ToList();
-            removedead();
+            //removedead();
             battletimer += 1;
             foreach (Creature c in everyone)
             {
@@ -120,7 +120,7 @@ namespace RPG
         public Creature updatespeed()
         {
             everyone = everyone.OrderBy(c => c.battlecounter).ToList();
-            removedead();
+            //removedead();
             Creature turncreature = everyone[0];
             double duration = everyone[0].battlecounter;
             foreach (Creature c in everyone){
@@ -176,6 +176,7 @@ namespace RPG
             }
             currentturn.defender = defender;
             currentturn.damage = damage;
+            removedead();
         }
 
 

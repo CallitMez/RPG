@@ -25,6 +25,8 @@ namespace RPG
         // Basics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        screenmanager screens = new screenmanager();
+        InputHelper inputHelper = new InputHelper();
 
         // Sprites
         Texture2D testure;
@@ -38,7 +40,6 @@ namespace RPG
         Battle secondbattle;
 
         // Input
-        InputHelper inputHelper = new InputHelper();
         Button testButton;
 
         public RPGGame()
@@ -50,6 +51,7 @@ namespace RPG
         protected override void Initialize()
         {
             // Battle stuff
+            
             warrior = new Hero("Warrior", 10, 1);
             fish = new Enemy("Fish", 10, 1, 0.3);
             List<Creature> heroes = new List<Creature>();
@@ -77,6 +79,7 @@ namespace RPG
 
         protected override void LoadContent()
         {
+            screens.loadcontent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
             FileManager f = new FileManager();
@@ -94,6 +97,7 @@ namespace RPG
             inputHelper.Update(gameTime);
             // Press escape to exit, will most likely have to be removed
             // at some point because we like to have an onscreen exit button
+            screens.update(gameTime);
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //while (anyBattle.proceed()) { }
             if (testButton.isClicked(inputHelper))
@@ -110,10 +114,12 @@ namespace RPG
 
         protected override void Draw(GameTime gameTime)
         {
+           
             spriteBatch.Begin();
             // Blank lines for readability
-
-
+            screens.draw(spriteBatch);
+            
+            
             GraphicsDevice.Clear(Color.White);
             testButton.Draw(spriteBatch);
             ongoingbattles.draw(spriteBatch,font);
