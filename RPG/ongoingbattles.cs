@@ -43,7 +43,7 @@ namespace RPG
         {
             for (int i = 0;i<ongoingbattlelist.Count;i++)
             {
-                ongoingbattlelist[i].Draw(spriteBatch,font,200*i);
+                ongoingbattlelist[i].Draw(spriteBatch,font,300*i);
             }
             //TODO make a function that draws the ongoing battles, clickable so you can see their status
             //TODO make a class and function that stores old battles

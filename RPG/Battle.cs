@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 
+
 namespace RPG
 {
     class Battle
@@ -15,6 +16,7 @@ namespace RPG
         public HashSet<turnlog> battlelog = new HashSet<turnlog>();
         double battletimer = 0;
         bool finnished;
+        double countdown;
         List<Creature> heroes, enemies;
         public List<Creature> everyone;
         turnlog currentturn;
@@ -69,7 +71,9 @@ namespace RPG
                 elapsedtime = 0;
                 return proceed();
             }
+            countdown = 60*(turncreature.battlecounter - elapsedtime);
             return !finnished;
+            
         }
 
         private List<Creature> createeveryone()
@@ -184,7 +188,8 @@ namespace RPG
         {
             spriteBatch.DrawString(font, "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", new Vector2(x, 0), Color.Black);
             spriteBatch.DrawString(font, "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", new Vector2(x, 200), Color.Black);
-            spriteBatch.DrawString(font, "Elapsed time " + elapsedtime, new Vector2(x, 300), Color.Black);
+            spriteBatch.DrawString(font, "Elapsed time " + Math.Round(elapsedtime,2), new Vector2(x, 300), Color.Black);
+            spriteBatch.DrawString(font, "Countdown " + Math.Round(countdown,2), new Vector2(x, 400), Color.Black);
         }
     }
 }

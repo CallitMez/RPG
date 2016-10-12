@@ -13,12 +13,12 @@ namespace RPG
     class screenmanager
     {
         static public Screen Battlescreen = new battlescreen();
-        static public Screen Menuscreen = new menuscreen();
+        static public Screen Menuscreen = new MenuScreen();
         static public Screen Inventoryscreen = new inventoryscreen();
         static public Screen Heroscreen = new heroscreen();
         static public Screen Questscreen = new questscreen();
         static public List<Screen> screenlist = new List<Screen>();
-        static int selected = 0;
+        static int selected = 1;
         public screenmanager()
         {
             screenlist.Add(Battlescreen);
