@@ -27,5 +27,7 @@ namespace RPG
         {
             graphicsDevice.Clear(Color.Black);
         }
+        public override void update(GameTime gameTime, InputHelper inputHelper) {
+        }
     }
 }
