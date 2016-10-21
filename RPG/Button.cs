@@ -32,10 +32,7 @@ namespace RPG
         {
             if (inputHelper.MouseLeftButtonPressed())
             {
-                if (size.Contains(inputHelper.MousePosition.X, inputHelper.MousePosition.Y))
-                {
-                    return true;
-                }
+                return size.Contains(inputHelper.MousePosition.X, inputHelper.MousePosition.Y);
             }
             return false;
         }
