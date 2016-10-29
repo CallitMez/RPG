@@ -24,10 +24,11 @@ namespace RPG
             this.sprite = sprite;
         }
 
-        public void Move(Point pos)
+        public void move(Point pos)
         {
             size.Location = pos;
         }
+
         public bool isClicked(InputHelper inputHelper)
         {
             if (inputHelper.MouseLeftButtonPressed())
@@ -37,7 +38,7 @@ namespace RPG
             return false;
         }
         
-        public void Draw(SpriteBatch spriteBatch)
+        public void draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, size, Color.White);
         }

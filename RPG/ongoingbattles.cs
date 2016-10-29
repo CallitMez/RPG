@@ -9,41 +9,41 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPG
 {
-    class ongoingbattles
+    class OngoingBattles
     {
-        static public List<Battle> ongoingbattlelist = new List<Battle>();
-        static public List<Battle> finnishedbattlelist = new List<Battle>();
+        public static List<Battle> ongoingBattleList = new List<Battle>();
+        public static List<Battle> finishedBattleList = new List<Battle>();
 
-        static public bool checkifoccupied(Creature creature)
+        public static bool checkIfOccupied(Creature creature)
         {
             bool sofar = false;
-            foreach (Battle b in ongoingbattlelist)
+            foreach (Battle b in ongoingBattleList)
             {
                 if (b.everyone.Contains(creature))
                     sofar = true;
             }
             return sofar;
         }
-        static public void update(GameTime gametime)
+        public static void update(GameTime gametime)
         {
-            foreach (Battle b in ongoingbattlelist)
+            foreach (Battle b in ongoingBattleList)
                 if (!b.update(gametime))
                 {
-                    finnishedbattlelist.Add(b);
+                    finishedBattleList.Add(b);
                 }
-            foreach(Battle b in finnishedbattlelist)
+            foreach(Battle b in finishedBattleList)
             {
-                if (ongoingbattlelist.Contains(b))
+                if (ongoingBattleList.Contains(b))
                 {
-                    ongoingbattlelist.Remove(b);
+                    ongoingBattleList.Remove(b);
                 }
             }
         }
-        static public void draw(SpriteBatch spriteBatch, SpriteFont font)
+        public static void draw(SpriteBatch spriteBatch, SpriteFont font)
         {
-            for (int i = 0;i<ongoingbattlelist.Count;i++)
+            for (int i = 0;i<ongoingBattleList.Count;i++)
             {
-                ongoingbattlelist[i].Draw(spriteBatch,font,300*i);
+                ongoingBattleList[i].Draw(spriteBatch,font,300*i);
             }
             //TODO make a function that draws the ongoing battles, clickable so you can see their status
             //TODO make a class and function that stores old battles

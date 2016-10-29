@@ -13,37 +13,41 @@ namespace RPG
     // Yknow I had a good idea for the drops and other data storage (you know what I mean,
     // .txt files FTW) and I'll most likely be working on that, until then I'd prefer to
     // have a game without drops and stuff...
-    class droptemplate
+    class DropTemplate
     {
         //TODO add something for multiple drops of same item
-        int moneydrop;
-        double moneyvariance;
-        int xpdrop;
-        double xpvariance;
-        List<itemdrop> droplist = new List<itemdrop>();
-        public void addmoney(int average, double variance = 0)
+        int moneyDrop;
+        double moneyVariance;
+        int xpDrop;
+        double xpVariance;
+        List<ItemDrop> dropList = new List<ItemDrop>();
+
+        public void addMoney(int average, double variance = 0)
         {
-            moneydrop = average;
-            moneyvariance = variance;
+            moneyDrop = average;
+            moneyVariance = variance;
         }
+
         public void addXP(int average, double variance = 0)
         {
-            xpdrop = average;
-            xpvariance = variance;
+            xpDrop = average;
+            xpVariance = variance;
         }
-        public void additem(Item item, double chance)
+
+        public void addItem(Item item, double chance)
         {
-            droplist.Add(new RPG.itemdrop(item, chance));
+            dropList.Add(new RPG.ItemDrop(item, chance));
         }
-        List<Item> calculatedrop()
+
+        private List<Item> calculateDrop()
         {
             //TODO calculate amount of xp and money
-            List<Item> totaldrops = new List<Item>();
-            foreach(itemdrop id in droplist){
+            List<Item> totalDrops = new List<Item>();
+            foreach(ItemDrop id in dropList){
                 //TODO calculate if drop
                
             }
-            return totaldrops; 
+            return totalDrops; 
             //we should change it to immediately give the loot to the player or store it inside a finnished battle (last seems better). 
             //if we have to return everything: new class needed to contain the drops. Can be avoided by making money and xp items
         }

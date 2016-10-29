@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class inventory
+    class Inventory
     {
-        List<inventoryslot> Contentlist= new List<inventoryslot>();
+        List<InventorySlot> Contentlist= new List<InventorySlot>();
             //TODO everything :P but firstly a draw function
     }
 }

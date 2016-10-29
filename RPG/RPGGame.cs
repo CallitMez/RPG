@@ -25,8 +25,9 @@ namespace RPG
         // Basics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        screenmanager screens = new screenmanager();
+        ScreenManager screenManager = new ScreenManager();
         InputHelper inputHelper = new InputHelper();
+        private static System.Random rng = new System.Random();
 
         // Sprites
         Texture2D testure;
@@ -37,7 +38,7 @@ namespace RPG
         Hero noob;
         Enemy karp;
         Battle anyBattle;
-        Battle secondbattle;
+        Battle secondBattle;
 
         // Input
         Button testButton;
@@ -59,7 +60,7 @@ namespace RPG
             heroes.Add(warrior);
             enemies.Add(fish);
             anyBattle = new Battle(heroes, enemies);
-            ongoingbattles.ongoingbattlelist.Add(anyBattle);
+            OngoingBattles.ongoingBattleList.Add(anyBattle);
 
             noob = new Hero("Piet", 150, 10,0.009);
             karp = new Enemy("Karp", 100, 10, 0.01);
@@ -67,8 +68,8 @@ namespace RPG
             List<Creature> fishes = new List<Creature>();
             noobs.Add(noob);
             fishes.Add(karp);
-            secondbattle = new Battle(noobs,fishes);
-            ongoingbattles.ongoingbattlelist.Add(secondbattle);
+            secondBattle = new Battle(noobs,fishes);
+            OngoingBattles.ongoingBattleList.Add(secondBattle);
 
             //anyBattle.proceed();
             // End battle stuff
@@ -79,7 +80,7 @@ namespace RPG
 
         protected override void LoadContent()
         {
-            screens.loadcontent(Content);
+            screenManager.loadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
             FileManager f = new FileManager();
@@ -97,17 +98,17 @@ namespace RPG
             inputHelper.Update(gameTime);
             // Press escape to exit, will most likely have to be removed
             // at some point because we like to have an onscreen exit button
-            screens.update(gameTime, inputHelper);
+            screenManager.update(gameTime, inputHelper);
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //while (anyBattle.proceed()) { }
             if (testButton.isClicked(inputHelper))
             {
-                anyBattle.writelog();
+                anyBattle.writeLog();
                 anyBattle.proceed();
             }
 
             // Pass the Update into the base "Game" class
-            ongoingbattles.update(gameTime);
+            OngoingBattles.update(gameTime);
             base.Update(gameTime);
         }
 
@@ -117,7 +118,7 @@ namespace RPG
            
             spriteBatch.Begin();
             // Blank lines for readability
-            screens.draw(spriteBatch, GraphicsDevice);
+            screenManager.draw(spriteBatch, GraphicsDevice);
             
             
             //GraphicsDevice.Clear(Color.White);
@@ -129,5 +130,8 @@ namespace RPG
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+
+        public static System.Random RNGsus => rng;
     }
 }

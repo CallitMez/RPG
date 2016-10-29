@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class itemdrop
+    class ItemDrop
     {
         public Item drop;
         public double chance;
-        public itemdrop(Item drop, double chance)
+        public ItemDrop(Item drop, double chance)
         {
             this.drop = drop;
             this.chance = chance;

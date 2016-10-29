@@ -13,21 +13,22 @@ namespace RPG
 {
     class Battle
     {
-        public HashSet<turnlog> battlelog = new HashSet<turnlog>();
-        double battletimer = 0;
-        bool finnished;
+        public HashSet<TurnLog> battleLog = new HashSet<TurnLog>();
+        double battleTimer = 0;
+        bool finished;
         double countdown;
         List<Creature> heroes, enemies;
         public List<Creature> everyone;
-        turnlog currentturn;
-        double elapsedtime = 0;
-        double speedmodifier;
-        public Battle(List<Creature> heroes, List<Creature> enemies, double speedmodifier = 1)//TODO vang droptemplate af (standaard 0)
+        TurnLog currentTurn;
+        double elapsedTime = 0;
+        double speedModifier;
+
+        public Battle(List<Creature> heroes, List<Creature> enemies, double speedModifier = 1)//TODO vang droptemplate af (standaard 0)
         {
             this.heroes = heroes;
             this.enemies = enemies;
-            this.speedmodifier = speedmodifier;
-            everyone = createeveryone();
+            this.speedModifier = speedModifier;
+            everyone = createEveryone();
             
             //TODO zorg dat hier een timer gezet wordt die bijhoudt hoe lang het gevecht al aan de gang is, 
             //zorg dat wanneer het gevecht beeindigd is(qua rekenwerk) 
@@ -37,102 +38,108 @@ namespace RPG
         public bool proceed()
         {
 
-            currentturn = new turnlog(heroes, enemies, 0, null, null, 0);
-            Random rnd = new Random();
+            currentTurn = new TurnLog(heroes, enemies, 0, null, null, 0);
+            Random rnd = RPGGame.RNGsus;
             everyone = everyone.OrderBy(c => rnd.Next()).ToList();
-            Creature currentcreature = updatespeed();
-            currentturn.attacker = currentcreature;
-            currentturn.battletimer = battletimer;
+            Creature currentCreature = updateSpeed();
+            currentTurn.attacker = currentCreature;
+            currentTurn.battleTimer = battleTimer;
             
-            turn(currentcreature);
-            battlelog.Add(currentturn);
+            turn(currentCreature);
+            battleLog.Add(currentTurn);
          
             //-------------------------------------------------------------------------------------------------------------------------------
 
             everyone = everyone.OrderBy(c => c.Name).ToList();
-            finnished = (heroes.Count <= 0 || enemies.Count <= 0);
-            return (!finnished);
-
+            finished = (heroes.Count <= 0 || enemies.Count <= 0);
+            return (!finished);
         }
 
-        public void writelog()
+        public void writeLog()
         {
-            foreach (turnlog turn in battlelog) System.Console.WriteLine(turn.Print());
+            foreach (TurnLog turn in battleLog)
+                System.Console.WriteLine(turn.print());
         }
 
-        public bool update(GameTime gametime)
+        public bool update(GameTime gameTime)
         {
-            everyone = everyone.OrderBy(c => c.battlecounter).ToList();
+            everyone = everyone.OrderBy(c => c.battleCounter).ToList();
             //removedead();
-            Creature turncreature = everyone[0];
-            elapsedtime += gametime.ElapsedGameTime.TotalMinutes;
-            if (turncreature.battlecounter*speedmodifier<elapsedtime)
+            Creature turnCreature = everyone[0];
+            elapsedTime += gameTime.ElapsedGameTime.TotalMinutes;
+            if (turnCreature.battleCounter*speedModifier<elapsedTime)
             {
-                elapsedtime = 0;
+                elapsedTime = 0;
                 return proceed();
             }
-            countdown = 60*(turncreature.battlecounter - elapsedtime);
-            return !finnished;
-            
+            countdown = 60*(turnCreature.battleCounter - elapsedTime);
+            return !finished;
         }
 
-        private List<Creature> createeveryone()
+        private List<Creature> createEveryone()
         {
-            List<Creature> combinedlist = new List<Creature>();
+            List<Creature> combinedList = new List<Creature>();
             foreach (Creature hero in heroes)
             {
-                combinedlist.Add(hero);
-                hero.enterbattle();
+                combinedList.Add(hero);
+                hero.enterBattle();
             }
             foreach (Creature enemy in enemies)
             {
-                combinedlist.Add(enemy);
-                enemy.enterbattle();
+                combinedList.Add(enemy);
+                enemy.enterBattle();
             }
-            return combinedlist;
+            return combinedList;
         }
 
-        public double entirebattle()
+        public double entireBattle()
         {
             while (proceed()) {}
-            return battletimer;
+            return battleTimer;
         }
 
-        public void updatespeedluuk()
+        public void updateSpeedLuuk()
         {
-            everyone = everyone.OrderBy(c => c.aspd).ToList();
+            everyone = everyone.OrderBy(c => c.attackSpeed).ToList();
             //removedead();
-            battletimer += 1;
+            battleTimer += 1;
             foreach (Creature c in everyone)
             {
-                if (battletimer % c.aspd == 0)
+                if (battleTimer % c.attackSpeed == 0)
                 {
                     turn(c);
                 }
             }
         }
 
-        void removedead()
+        void removeDead()
         {
-            foreach (Creature c in everyone) if (c.HP <= 0) c.HP = 0;
-            everyone.RemoveAll(c => c.HP == 0);
-            heroes.RemoveAll(c => c.HP == 0);
-            enemies.RemoveAll(c => c.HP == 0);
+            // Make sure all dead creatures are set to 0 hp.
+            foreach (Creature c in everyone)
+                if (c.HP <= 0)
+                    c.HP = 0;
 
+            // Remove all dead creatures
+            Predicate<Creature> isDead = 
+                c => c.HP == 0;
+
+            everyone.RemoveAll(isDead);
+            heroes.RemoveAll(isDead);
+            enemies.RemoveAll(isDead);
         }
 
-        public Creature updatespeed()
+        public Creature updateSpeed()
         {
-            everyone = everyone.OrderBy(c => c.battlecounter).ToList();
+            everyone = everyone.OrderBy(c => c.battleCounter).ToList();
             //removedead();
-            Creature turncreature = everyone[0];
-            double duration = everyone[0].battlecounter;
+            Creature turnCreature = everyone[0];
+            double duration = everyone[0].battleCounter;
             foreach (Creature c in everyone){
-                c.battlecounter -= duration;
+                c.battleCounter -= duration;
             }
-            battletimer += duration;
-            turncreature.battlecounter = turncreature.aspd;
-            return turncreature;
+            battleTimer += duration;
+            turnCreature.battleCounter = turnCreature.attackSpeed;
+            return turnCreature;
         }
 
         /*void turn(Creature creature)
@@ -162,25 +169,25 @@ namespace RPG
         {
             int damage;
             Creature defender;
+            Func<Creature, int> attackPriority = ((c) => c.Hate);
             if (heroes.Contains(creature)){
-                enemies = enemies.OrderBy(c => c.Hate).ToList();
+                enemies = enemies.OrderBy(attackPriority).ToList();
                 defender = enemies[0];
                 damage = creature.Atk;
-                defender.damage(damage);
+                defender.takeDamage(damage);
                 //Console.WriteLine("Creature " + creature.Name + " attacks! " + defender.Name + " lost " + creature.Atk + " HP!");
                     
             }
             else{
-                heroes = heroes.OrderBy(c => c.Hate).ToList();
+                heroes = heroes.OrderBy(attackPriority).ToList();
                 defender = heroes[0];
                 damage = creature.Atk;
-                defender.damage(damage);
+                defender.takeDamage(damage);
                 //Console.WriteLine("Creature " + creature.Name + " attacks! " + defender.Name + " lost " + creature.Atk + " HP!");
-                    
             }
-            currentturn.defender = defender;
-            currentturn.damage = damage;
-            removedead();
+            currentTurn.defender = defender;
+            currentTurn.damage = damage;
+            removeDead();
         }
 
 
@@ -188,7 +195,7 @@ namespace RPG
         {
             spriteBatch.DrawString(font, "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", new Vector2(x, 0), Color.Black);
             spriteBatch.DrawString(font, "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", new Vector2(x, 200), Color.Black);
-            spriteBatch.DrawString(font, "Elapsed time " + Math.Round(elapsedtime,2), new Vector2(x, 300), Color.Black);
+            spriteBatch.DrawString(font, "Elapsed time " + Math.Round(elapsedTime,2), new Vector2(x, 300), Color.Black);
             spriteBatch.DrawString(font, "Countdown " + Math.Round(countdown,2), new Vector2(x, 400), Color.Black);
         }
     }

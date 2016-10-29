@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class inventoryslot
+    class InventorySlot
     {
         Item item;
         int amount;
