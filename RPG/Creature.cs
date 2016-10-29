@@ -16,39 +16,41 @@ namespace RPG
         public int HP;
         public double attackSpeed;
         public double battleCounter = 1;
-        public Creature(string name, int HP, int attack, double aspd = 5, string type = "creature")
+        public Creature(string name, int HP, int attack, double attackSpeed = 5, string type = "creature")
         {
             this.name = name;
             this.type = type;
             this.MaxHP = HP;
-            this.attackSpeed = aspd;
+            this.attackSpeed = attackSpeed;
             this.HP = HP;
             this.attack = attack;
         }
 
-        public string Name { get { return name; } }
-        public int Atk { get { return attack; } }
-        public string Type { get { return type; } }
-        public int Hate { get { return taunt; } }
+        public string Name => name;
+        public int Atk => attack;
+        public string Type => type;
+        public int Hate => taunt;
 
         public void takeDamage(int amount)
         {
             HP -= amount;
         }
-        public void enterbattle()
+
+        public void enterBattle()
         {
             battleCounter = attackSpeed;
         }
+
         public void fight(List<Creature> opponents)
         {
-            List<Creature> thisenemy = new List<Creature>();
-            thisenemy.Add(this);
-            ongoingbattles.ongoingbattlelist.Add(new Battle(opponents, thisenemy));//WIP droptemplate moet nog toegevoegd aan battle, iig bij enemies
+            List<Creature> thisEnemy = new List<Creature>();
+            thisEnemy.Add(this);
+            OngoingBattles.ongoingBattleList.Add(new Battle(opponents, thisEnemy));//WIP droptemplate moet nog toegevoegd aan battle, iig bij enemies
         }
     }
     class Enemy : Creature
     {
-        droptemplate drops = new droptemplate();
+        DropTemplate drops = new DropTemplate();
 
         public Enemy(string name, int HP, int attack, double aspd) : base(name, HP, attack, aspd, "enemy")
         {

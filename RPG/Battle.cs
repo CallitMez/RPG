@@ -13,13 +13,13 @@ namespace RPG
 {
     class Battle
     {
-        public HashSet<turnlog> battleLog = new HashSet<turnlog>();
+        public HashSet<TurnLog> battleLog = new HashSet<TurnLog>();
         double battleTimer = 0;
         bool finished;
         double countdown;
         List<Creature> heroes, enemies;
         public List<Creature> everyone;
-        turnlog currentTurn;
+        TurnLog currentTurn;
         double elapsedTime = 0;
         double speedModifier;
 
@@ -38,7 +38,7 @@ namespace RPG
         public bool proceed()
         {
 
-            currentTurn = new turnlog(heroes, enemies, 0, null, null, 0);
+            currentTurn = new TurnLog(heroes, enemies, 0, null, null, 0);
             Random rnd = RPGGame.RNGsus;
             everyone = everyone.OrderBy(c => rnd.Next()).ToList();
             Creature currentCreature = updateSpeed();
@@ -57,7 +57,7 @@ namespace RPG
 
         public void writeLog()
         {
-            foreach (turnlog turn in battleLog)
+            foreach (TurnLog turn in battleLog)
                 System.Console.WriteLine(turn.print());
         }
 
@@ -82,12 +82,12 @@ namespace RPG
             foreach (Creature hero in heroes)
             {
                 combinedList.Add(hero);
-                hero.enterbattle();
+                hero.enterBattle();
             }
             foreach (Creature enemy in enemies)
             {
                 combinedList.Add(enemy);
-                enemy.enterbattle();
+                enemy.enterBattle();
             }
             return combinedList;
         }

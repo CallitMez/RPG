@@ -27,7 +27,6 @@ namespace RPG
             screenList.Add(inventoryScreen);
             screenList.Add(questScreen);
             screenList.Add(heroScreen);
-
         }
 
         public void loadContent(ContentManager Content)

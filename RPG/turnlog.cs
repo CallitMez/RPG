@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class turnlog
+    class TurnLog
     {
         public HashSet<Creature> heroes;
         public HashSet<Creature> enemies;
@@ -16,7 +16,7 @@ namespace RPG
         public int damage;
 
 
-        public turnlog(List<Creature>heroes,List<Creature>enemies,double battletimer, Creature attacker, Creature defender, int damage)
+        public TurnLog(List<Creature>heroes,List<Creature>enemies,double battletimer, Creature attacker, Creature defender, int damage)
         {
             this.heroes = new HashSet<Creature>(heroes);
             this.enemies = new HashSet<Creature>(enemies);

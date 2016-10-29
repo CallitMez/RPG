@@ -26,7 +26,7 @@ namespace RPG
         public virtual void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             graphicsDevice.Clear(Color.White);
-            menuButton.Draw(spriteBatch);
+            menuButton.draw(spriteBatch);
         }
 
         public virtual void update(GameTime gameTime, InputHelper inputHelper)

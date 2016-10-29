@@ -9,6 +9,7 @@ namespace RPG
     class Item
     {
         bool stackable; //TODO make this work
+                        // How about making this an int called maxStackSize? -Ebilkill
         string name;
         public Item(string name)
         {

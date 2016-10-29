@@ -28,7 +28,7 @@ namespace RPG
             baddudes.Add(baddude);
             heroList.Add(hero);
             newBattle = new Battle(heroList,baddudes);
-            ongoingbattles.ongoingbattlelist.Add(newBattle);
+            OngoingBattles.ongoingBattleList.Add(newBattle);
         }
 
         public override void loadContent(ContentManager Content)
@@ -39,7 +39,7 @@ namespace RPG
         public override void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             graphicsDevice.Clear(Color.Blue);
-            ongoingbattles.draw(spriteBatch, font);
+            OngoingBattles.draw(spriteBatch, font);
         }
         public override void update(GameTime gameTime, InputHelper inputHelper) {
         }
