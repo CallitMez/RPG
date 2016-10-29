@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RPG.Gui.Elements;
 
 
-namespace RPG
+namespace RPG.Gui.Screens
 {
-    class MenuScreen : Screen
+    class MenuScreen : GuiScreen
     {
         Hero hero;
         Enemy baddude;
@@ -29,19 +30,27 @@ namespace RPG
             heroList.Add(hero);
             newBattle = new Battle(heroList,baddudes);
             OngoingBattles.ongoingBattleList.Add(newBattle);
+            GuiButton buttonExit = new GuiButton(new Rectangle(0, 0, 32, 32), "testure");
+            buttonExit.ClickHandler = kill;
+            addElement(buttonExit);
+        }
+
+        private void kill()
+        {
+            throw new NotImplementedException();
         }
 
         public override void loadContent(ContentManager Content)
         {
+            base.loadContent(Content);
             font = Content.Load<SpriteFont>("font");
         }
 
         public override void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            graphicsDevice.Clear(Color.Blue);
+            //graphicsDevice.Clear(Color.Blue);
             OngoingBattles.draw(spriteBatch, font);
-        }
-        public override void update(GameTime gameTime, InputHelper inputHelper) {
+            base.draw(spriteBatch, graphicsDevice);
         }
     }
 }

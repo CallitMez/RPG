@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace RPG
+namespace RPG.Gui.Screens
 {
-    class BattleScreen:Screen
+    class HeroScreen : GuiScreen
     {
     }
 }

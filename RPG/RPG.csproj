@@ -39,29 +39,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Battle.cs" />
-    <Compile Include="battlescreen.cs" />
-    <Compile Include="Button.cs" />
+    <Compile Include="Gui\GuiElement.cs" />
+    <Compile Include="Gui\Screens\BattleScreen.cs" />
+    <Compile Include="Gui\Elements\GuiButton.cs" />
     <Compile Include="Creature.cs" />
-    <Compile Include="droptemplate.cs" />
+    <Compile Include="DropTemplate.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Hero.cs" />
-    <Compile Include="heroscreen.cs" />
+    <Compile Include="Gui\Screens\HeroScreen.cs" />
     <Compile Include="InputHelper.cs" />
-    <Compile Include="inventory.cs" />
-    <Compile Include="inventoryscreen.cs" />
-    <Compile Include="inventoryslot.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Gui\Screens\InventoryScreen.cs" />
+    <Compile Include="InventorySlot.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="itemdrop.cs" />
-    <Compile Include="menuscreen.cs" />
-    <Compile Include="ongoingbattles.cs" />
-    <Compile Include="questscreen.cs" />
+    <Compile Include="ItemDrop.cs" />
+    <Compile Include="Gui\Screens\MenuScreen.cs" />
+    <Compile Include="OngoingBattles.cs" />
+    <Compile Include="Gui\Screens\QuestScreen.cs" />
     <Compile Include="RPGGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Screen.cs" />
-    <Compile Include="screenmanager.cs" />
-    <Compile Include="turnlog.cs" />
+    <Compile Include="Gui\GuiScreen.cs" />
+    <Compile Include="Gui\ScreenManager.cs" />
+    <Compile Include="TurnLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
