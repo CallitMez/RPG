@@ -27,6 +27,7 @@ namespace RPG
         SpriteBatch spriteBatch;
         screenmanager screens = new screenmanager();
         InputHelper inputHelper = new InputHelper();
+        private static System.Random rng = new System.Random();
 
         // Sprites
         Texture2D testure;
@@ -102,7 +103,7 @@ namespace RPG
             //while (anyBattle.proceed()) { }
             if (testButton.isClicked(inputHelper))
             {
-                anyBattle.writelog();
+                anyBattle.writeLog();
                 anyBattle.proceed();
             }
 
@@ -129,5 +130,8 @@ namespace RPG
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+
+        public static System.Random RNGsus => rng;
     }
 }

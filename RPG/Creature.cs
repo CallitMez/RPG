@@ -14,14 +14,14 @@ namespace RPG
         string name, type;
         int attack, MaxHP, taunt = 1;
         public int HP;
-        public double aspd;
-        public double battlecounter = 1;
+        public double attackSpeed;
+        public double battleCounter = 1;
         public Creature(string name, int HP, int attack, double aspd = 5, string type = "creature")
         {
             this.name = name;
             this.type = type;
             this.MaxHP = HP;
-            this.aspd = aspd;
+            this.attackSpeed = aspd;
             this.HP = HP;
             this.attack = attack;
         }
@@ -31,13 +31,13 @@ namespace RPG
         public string Type { get { return type; } }
         public int Hate { get { return taunt; } }
 
-        public void damage(int amount)
+        public void takeDamage(int amount)
         {
             HP -= amount;
         }
         public void enterbattle()
         {
-            battlecounter = aspd;
+            battleCounter = attackSpeed;
         }
         public void fight(List<Creature> opponents)
         {

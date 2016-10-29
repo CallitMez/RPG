@@ -10,7 +10,7 @@ namespace RPG
     {
         public HashSet<Creature> heroes;
         public HashSet<Creature> enemies;
-        public double battletimer;
+        public double battleTimer;
         public Creature attacker;
         public Creature defender;
         public int damage;
@@ -20,13 +20,13 @@ namespace RPG
         {
             this.heroes = new HashSet<Creature>(heroes);
             this.enemies = new HashSet<Creature>(enemies);
-            this.battletimer = battletimer;
+            this.battleTimer = battletimer;
             this.attacker = attacker;
             this.defender = defender;
             this.damage = damage;
         }
 
-        public string Print()
+        public string print()
         {
             string ret = "";
             ret += "Currently in battle: ";
@@ -34,7 +34,7 @@ namespace RPG
             foreach (Creature enemy in enemies) ret += enemy.Name + ", ";
             ret += "\nThis turn " + attacker.Name + " fought with " + defender.Name;
             ret += "\nHe did " + damage + " damage total, bringing " + defender.Name + " from " + (defender.HP + damage) + " to " + defender.HP;
-            ret += "\nCurrent battle time: " + battletimer;
+            ret += "\nCurrent battle time: " + battleTimer;
             return ret;
         }
     }
