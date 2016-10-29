@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+
 
 namespace RPG
 {
@@ -11,14 +16,19 @@ namespace RPG
         public HashSet<turnlog> battlelog = new HashSet<turnlog>();
         double battletimer = 0;
         bool finnished;
+        double countdown;
         List<Creature> heroes, enemies;
         public List<Creature> everyone;
         turnlog currentturn;
+        double elapsedtime = 0;
+        double speedmodifier;
         public Battle(List<Creature> heroes, List<Creature> enemies, double speedmodifier = 1)//TODO vang droptemplate af (standaard 0)
         {
             this.heroes = heroes;
             this.enemies = enemies;
+            this.speedmodifier = speedmodifier;
             everyone = createeveryone();
+            
             //TODO zorg dat hier een timer gezet wordt die bijhoudt hoe lang het gevecht al aan de gang is, 
             //zorg dat wanneer het gevecht beeindigd is(qua rekenwerk) 
             //met behulp van speedmodifier berekend wordt of hij afgelopen is. (speedmodifier*battletimer (minuten))
@@ -26,33 +36,46 @@ namespace RPG
 
         public bool proceed()
         {
-            if(heroes.Count < 1 || enemies.Count < 1 || finnished)
-            {
-                return false;
-            }
+
             currentturn = new turnlog(heroes, enemies, 0, null, null, 0);
             Random rnd = new Random();
             everyone = everyone.OrderBy(c => rnd.Next()).ToList();
             Creature currentcreature = updatespeed();
             currentturn.attacker = currentcreature;
             currentturn.battletimer = battletimer;
-            if (enemies.Count > 0)
-            {
-                turn(currentcreature);
-                battlelog.Add(currentturn);
-            }
-            //updatespeed();
+            
+            turn(currentcreature);
+            battlelog.Add(currentturn);
+         
+            //-------------------------------------------------------------------------------------------------------------------------------
 
             everyone = everyone.OrderBy(c => c.Name).ToList();
-            //everyone.Reverse();
-            foreach (Creature c in everyone)
-            {
-                //Console.WriteLine("Creature: " + c.Name + " currently has " + c.HP + " HP and " + c.battlecounter + " aspd.");
-            }
+            finnished = (heroes.Count <= 0 || enemies.Count <= 0);
+            return (!finnished);
 
-            return (heroes.Count > 0 && enemies.Count > 0);
-           
         }
+
+        public void writelog()
+        {
+            foreach (turnlog turn in battlelog) System.Console.WriteLine(turn.Print());
+        }
+
+        public bool update(GameTime gametime)
+        {
+            everyone = everyone.OrderBy(c => c.battlecounter).ToList();
+            //removedead();
+            Creature turncreature = everyone[0];
+            elapsedtime += gametime.ElapsedGameTime.TotalMinutes;
+            if (turncreature.battlecounter*speedmodifier<elapsedtime)
+            {
+                elapsedtime = 0;
+                return proceed();
+            }
+            countdown = 60*(turncreature.battlecounter - elapsedtime);
+            return !finnished;
+            
+        }
+
         private List<Creature> createeveryone()
         {
             List<Creature> combinedlist = new List<Creature>();
@@ -68,15 +91,17 @@ namespace RPG
             }
             return combinedlist;
         }
+
         public double entirebattle()
         {
             while (proceed()) {}
             return battletimer;
         }
+
         public void updatespeedluuk()
         {
             everyone = everyone.OrderBy(c => c.aspd).ToList();
-            removedead();
+            //removedead();
             battletimer += 1;
             foreach (Creature c in everyone)
             {
@@ -86,6 +111,7 @@ namespace RPG
                 }
             }
         }
+
         void removedead()
         {
             foreach (Creature c in everyone) if (c.HP <= 0) c.HP = 0;
@@ -94,10 +120,11 @@ namespace RPG
             enemies.RemoveAll(c => c.HP == 0);
 
         }
+
         public Creature updatespeed()
         {
             everyone = everyone.OrderBy(c => c.battlecounter).ToList();
-            removedead();
+            //removedead();
             Creature turncreature = everyone[0];
             double duration = everyone[0].battlecounter;
             foreach (Creature c in everyone){
@@ -153,6 +180,16 @@ namespace RPG
             }
             currentturn.defender = defender;
             currentturn.damage = damage;
+            removedead();
+        }
+
+
+        public void Draw(SpriteBatch spriteBatch, SpriteFont font, int x)
+        {
+            spriteBatch.DrawString(font, "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", new Vector2(x, 0), Color.Black);
+            spriteBatch.DrawString(font, "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", new Vector2(x, 200), Color.Black);
+            spriteBatch.DrawString(font, "Elapsed time " + Math.Round(elapsedtime,2), new Vector2(x, 300), Color.Black);
+            spriteBatch.DrawString(font, "Countdown " + Math.Round(countdown,2), new Vector2(x, 400), Color.Black);
         }
     }
 }

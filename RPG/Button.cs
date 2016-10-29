@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+
+
+/// <summary>
+/// -----------------------------------------------
+/// -------------------Button.cs-------------------
+/// ---------------Made by: CallitMez--------------
+/// ----------------Made for RPGGame---------------
+/// -------------------12-10-2016------------------
+/// ------------github.com/CallitMez/RPG-----------
+/// -----------------------------------------------
+/// </summary>
 
 namespace RPG
 {
@@ -27,10 +32,7 @@ namespace RPG
         {
             if (inputHelper.MouseLeftButtonPressed())
             {
-                if (size.Contains(inputHelper.MousePosition.X, inputHelper.MousePosition.Y))
-                {
-                    return true;
-                }
+                return size.Contains(inputHelper.MousePosition.X, inputHelper.MousePosition.Y);
             }
             return false;
         }
