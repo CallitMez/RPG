@@ -120,10 +120,12 @@ namespace RPG
                     c.HP = 0;
 
             // Remove all dead creatures
-            Predicate<Creature> compFunc = c => c.HP == 0;
-            everyone.RemoveAll(compFunc);
-            heroes.RemoveAll(compFunc);
-            enemies.RemoveAll(compFunc);
+            Predicate<Creature> isDead = 
+                c => c.HP == 0;
+
+            everyone.RemoveAll(isDead);
+            heroes.RemoveAll(isDead);
+            enemies.RemoveAll(isDead);
         }
 
         public Creature updateSpeed()
