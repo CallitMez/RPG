@@ -10,45 +10,50 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPG
 {
-    class screenmanager
+    class ScreenManager
     {
-        static public Screen Battlescreen = new battlescreen();
-        static public Screen Menuscreen = new MenuScreen();
-        static public Screen Inventoryscreen = new inventoryscreen();
-        static public Screen Heroscreen = new heroscreen();
-        static public Screen Questscreen = new questscreen();
-        static public List<Screen> screenlist = new List<Screen>();
+        public static Screen battleScreen = new BattleScreen();
+        public static Screen menuScreen = new MenuScreen();
+        public static Screen inventoryScreen = new InventoryScreen();
+        public static Screen heroScreen = new HeroScreen();
+        public static Screen questScreen = new QuestScreen();
+        public static List<Screen> screenList = new List<Screen>();
         static int selected = 1;
-        public screenmanager()
+
+        public ScreenManager()
         {
-            screenlist.Add(Battlescreen);
-            screenlist.Add(Menuscreen);
-            screenlist.Add(Inventoryscreen);
-            screenlist.Add(Questscreen);
-            screenlist.Add(Heroscreen);
+            screenList.Add(battleScreen);
+            screenList.Add(menuScreen);
+            screenList.Add(inventoryScreen);
+            screenList.Add(questScreen);
+            screenList.Add(heroScreen);
 
         }
-        public void loadcontent(ContentManager Content)
+
+        public void loadContent(ContentManager Content)
         {
-            foreach(Screen s in screenlist)
+            foreach(Screen s in screenList)
             {
-                s.loadcontent(Content);
+                s.loadContent(Content);
             }
         }
+
         public void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            screenlist[selected].draw(spriteBatch, graphicsDevice);
+            screenList[selected].draw(spriteBatch, graphicsDevice);
         }
+
         public void update(GameTime gameTime, InputHelper inputHelper)
         {
-            foreach (Screen s in screenlist)
+            foreach (Screen s in screenList)
             {
                 s.update(gameTime, inputHelper);
             }
         }
-        static public void selectscreen(Screen screen)
+
+        public static void selectScreen(Screen screen)
         {
-            selected = screenlist.IndexOf(screen);
+            selected = screenList.IndexOf(screen);
         }
     }
 }

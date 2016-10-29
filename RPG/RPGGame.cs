@@ -25,7 +25,7 @@ namespace RPG
         // Basics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        screenmanager screens = new screenmanager();
+        ScreenManager screens = new ScreenManager();
         InputHelper inputHelper = new InputHelper();
         private static System.Random rng = new System.Random();
 
@@ -80,7 +80,7 @@ namespace RPG
 
         protected override void LoadContent()
         {
-            screens.loadcontent(Content);
+            screens.loadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
             FileManager f = new FileManager();

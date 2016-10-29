@@ -15,23 +15,23 @@ namespace RPG
     {
         Hero hero;
         Enemy baddude;
-        List<Creature> herolist;
+        List<Creature> heroList;
         List<Creature> baddudes;
-        Battle newbattle;
+        Battle newBattle;
         SpriteFont font;
         public MenuScreen()
         {
-            herolist = new List<Creature>();
+            heroList = new List<Creature>();
             baddudes = new List<Creature>();
             hero = new Hero("tester", 100, 5, 0.5);
             baddude = new Enemy("tester", 100, 5, 0.1);
             baddudes.Add(baddude);
-            herolist.Add(hero);
-            newbattle = new Battle(herolist,baddudes);
-            ongoingbattles.ongoingbattlelist.Add(newbattle);
+            heroList.Add(hero);
+            newBattle = new Battle(heroList,baddudes);
+            ongoingbattles.ongoingbattlelist.Add(newBattle);
         }
 
-        public override void loadcontent(ContentManager Content)
+        public override void loadContent(ContentManager Content)
         {
             font = Content.Load<SpriteFont>("font");
         }

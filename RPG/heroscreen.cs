@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPG
 {
-    class heroscreen : Screen
+    class HeroScreen : Screen
     {
     }
 }

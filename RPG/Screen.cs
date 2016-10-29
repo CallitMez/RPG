@@ -14,21 +14,25 @@ namespace RPG
 {
     class Screen
     {
-        Button menubutton;
+        Button menuButton;
         Texture2D testure;
-        public virtual void loadcontent(ContentManager Content)
+
+        public virtual void loadContent(ContentManager Content)
         {
             testure = Content.Load<Texture2D>("testure");
-            menubutton = new Button(new Rectangle(new Point(0), new Point(64)), testure);
+            menuButton = new Button(new Rectangle(new Point(0), new Point(64)), testure);
         }
+
         public virtual void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             graphicsDevice.Clear(Color.White);
-            menubutton.Draw(spriteBatch);
+            menuButton.Draw(spriteBatch);
         }
+
         public virtual void update(GameTime gameTime, InputHelper inputHelper)
         {
-            if (menubutton.isClicked(inputHelper)) screenmanager.selectscreen(screenmanager.Menuscreen);
+            if (menuButton.isClicked(inputHelper))
+                ScreenManager.selectScreen(ScreenManager.menuScreen);
         }
     }
 }
