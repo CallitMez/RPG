@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RPG.Gui.Elements;
 
 namespace RPG
 {
@@ -24,6 +25,7 @@ namespace RPG
             }
             return sofar;
         }
+
         public static void update(GameTime gametime)
         {
             foreach (Battle b in ongoingBattleList)
@@ -39,6 +41,25 @@ namespace RPG
                 }
             }
         }
+
+        public static List<GuiLabel> getBattleLabels(string fontName)
+        {
+            // Create a list of labels
+            List<GuiLabel> labels = new List<Gui.Elements.GuiLabel>();
+
+            for (int i = 0; i < ongoingBattleList.Count; ++i)
+            {
+                List<GuiLabel> battleLabels = ongoingBattleList[i].getLabels(300 * i, fontName);
+                foreach (GuiLabel label in battleLabels)
+                {
+                    labels.Add(label);
+                }
+            }
+
+            // Return the created list
+            return labels;
+        }
+
         public static void draw(SpriteBatch spriteBatch, SpriteFont font)
         {
             for (int i = 0;i<ongoingBattleList.Count;i++)

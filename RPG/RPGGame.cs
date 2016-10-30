@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using RPG.Gui;
 
 namespace RPG
 {
@@ -31,7 +32,7 @@ namespace RPG
 
         // Sprites
         Texture2D testure;
-        SpriteFont font;
+
         // Battle stuff
         Hero warrior;
         Enemy fish;
@@ -39,9 +40,6 @@ namespace RPG
         Enemy karp;
         Battle anyBattle;
         Battle secondBattle;
-
-        // Input
-        Button testButton;
 
         public RPGGame()
         {
@@ -80,12 +78,10 @@ namespace RPG
 
         protected override void LoadContent()
         {
+            GuiScreen.loadCommonContent(Content);
             screenManager.loadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("font");
             FileManager f = new FileManager();
-            testure = Content.Load<Texture2D>("testure");
-            testButton = new Button(new Rectangle(new Point(50), new Point(16)), testure);
         }
 
         protected override void UnloadContent()
@@ -101,11 +97,12 @@ namespace RPG
             screenManager.update(gameTime, inputHelper);
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //while (anyBattle.proceed()) { }
-            if (testButton.isClicked(inputHelper))
+
+            /*if (testButton.isClicked(inputHelper))
             {
                 anyBattle.writeLog();
                 anyBattle.proceed();
-            }
+            }*/
 
             // Pass the Update into the base "Game" class
             OngoingBattles.update(gameTime);
@@ -130,7 +127,6 @@ namespace RPG
             spriteBatch.End();
             base.Draw(gameTime);
         }
-
 
         public static System.Random RNGsus => rng;
     }
