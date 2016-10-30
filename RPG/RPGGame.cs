@@ -32,7 +32,7 @@ namespace RPG
 
         // Sprites
         Texture2D testure;
-        SpriteFont font;
+
         // Battle stuff
         Hero warrior;
         Enemy fish;
@@ -40,9 +40,6 @@ namespace RPG
         Enemy karp;
         Battle anyBattle;
         Battle secondBattle;
-
-        // Input
-        Gui.Elements.GuiButton testButton;
 
         public RPGGame()
         {
@@ -81,11 +78,10 @@ namespace RPG
 
         protected override void LoadContent()
         {
+            GuiScreen.loadCommonContent(Content);
             screenManager.loadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("font");
             FileManager f = new FileManager();
-            testButton = new Gui.Elements.GuiButton(new Rectangle(new Point(50), new Point(16)), "testure");
         }
 
         protected override void UnloadContent()

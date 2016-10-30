@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
-
+using RPG.Gui.Elements;
 
 namespace RPG
 {
@@ -190,6 +189,24 @@ namespace RPG
             removeDead();
         }
 
+        public List<GuiLabel> getLabels(int xPos, string fontName)
+        {
+            // Create a list of labels
+            List<GuiLabel> allLabels = new List<GuiLabel>();
+
+            // Initialize the labels and add them to the list
+
+            // TODO it would be better to make these labels fields and update them, rather than creating new ones every update.
+            // This would also eliminate the need to re-add them to another list every update, as the reference stays equal. -Ebilkill
+
+            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 0)  , "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", fontName));
+            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 200), "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", fontName));
+            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 300), "Elapsed time " + Math.Round(elapsedTime, 2), fontName));
+            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 400), "Countdown " + Math.Round(countdown, 2), fontName));
+
+            // Return the generated list
+            return allLabels;
+        }
 
         public void Draw(SpriteBatch spriteBatch, SpriteFont font, int x)
         {

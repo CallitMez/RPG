@@ -19,7 +19,9 @@ namespace RPG.Gui.Screens
         List<Creature> heroList;
         List<Creature> baddudes;
         Battle newBattle;
-        SpriteFont font;
+
+        string font;
+
         public MenuScreen()
         {
             heroList = new List<Creature>();
@@ -33,6 +35,7 @@ namespace RPG.Gui.Screens
             GuiButton buttonExit = new GuiButton(new Rectangle(0, 0, 32, 32), "testure");
             buttonExit.ClickHandler = kill;
             addElement(buttonExit);
+            font = "font";
         }
 
         private void kill()
@@ -43,14 +46,19 @@ namespace RPG.Gui.Screens
         public override void loadContent(ContentManager Content)
         {
             base.loadContent(Content);
-            font = Content.Load<SpriteFont>("font");
         }
 
-        public override void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        public override void update(GameTime gameTime, InputHelper inputHelper)
         {
-            //graphicsDevice.Clear(Color.Blue);
-            OngoingBattles.draw(spriteBatch, font);
-            base.draw(spriteBatch, graphicsDevice);
+            base.update(gameTime, inputHelper);
+            this.clearElements();
+            List<GuiLabel> battleLabels = OngoingBattles.getBattleLabels(font);
+
+            foreach (GuiLabel label in battleLabels)
+            {
+                label.Font = getFont(font);
+                this.addElement(label);
+            }
         }
     }
 }

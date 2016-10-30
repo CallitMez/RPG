@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Battle.cs" />
+    <Compile Include="Gui\Elements\GuiLabel.cs" />
     <Compile Include="Gui\GuiElement.cs" />
     <Compile Include="Gui\Screens\BattleScreen.cs" />
     <Compile Include="Gui\Elements\GuiButton.cs" />
