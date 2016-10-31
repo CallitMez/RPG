@@ -14,35 +14,13 @@ namespace RPG.Gui
 {
     abstract class GuiScreen
     {
-        private static List<string> fontNames = new List<string>();
-        private static Dictionary<string, SpriteFont> fontDict = new Dictionary<string, SpriteFont>();
-
         private List<GuiElement> elements;
         private int activeElement;
-
-        private static void initFontNames()
-        {
-            fontNames.Add("font");
-        }
-
-        public static void loadCommonContent(ContentManager content)
-        {
-            initFontNames();
-            foreach (string fontName in fontNames)
-            {
-                fontDict[fontName] = content.Load<SpriteFont>(fontName);
-            }
-        }
-
-        public static SpriteFont getFont(string fontName)
-        {
-            return fontDict[fontName];
-        }
 
         public static Vector2 getLabelSize(string labelText, string fontName)
         {
             // Get the glyph sizes
-            SpriteFont font = getFont(fontName);
+            SpriteFont font = RPGGame.AssetManager.getFont(fontName);
             Dictionary<char, SpriteFont.Glyph> charSizes = font.GetGlyphs();
 
             // Create a new size vector
@@ -80,7 +58,7 @@ namespace RPG.Gui
             elements.Clear();
         }
 
-        public virtual void loadContent(ContentManager content)
+        public virtual void loadContent(AssetManager content)
         {
             foreach(GuiElement element in elements)
             {

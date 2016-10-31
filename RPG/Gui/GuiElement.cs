@@ -21,8 +21,8 @@ namespace RPG.Gui
         /// <summary>
         /// Called when the content of this GuiElement should be loaded.
         /// </summary>
-        /// <param name="content">The ContentManager to load the content with.</param>
-        public abstract void loadContent(ContentManager content);
+        /// <param name="content">The AssetManager to load the content with.</param>
+        public abstract void loadContent(AssetManager content);
 
         /// <summary>
         /// Called by the parent GuiScreen when this GuiElement should be drawn to the screen.

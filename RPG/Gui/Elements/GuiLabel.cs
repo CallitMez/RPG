@@ -43,9 +43,9 @@ namespace RPG.Gui.Elements
             spriteBatch.DrawString(font, labelText, Bounds.Location.ToVector2(), labelColor);
         }
 
-        public override void loadContent(ContentManager content)
+        public override void loadContent(AssetManager content)
         {
-            this.font = GuiScreen.getFont(this.fontName);
+            this.font = content.getFont(this.fontName);
         }
 
         private void calculateBounds(Vector2 position)

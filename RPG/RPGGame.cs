@@ -11,7 +11,6 @@ namespace RPG
 
 
 
-
         //TODO create gamestates in which you can see:
         //a list of active battles(same page or different page for additional information)
         //a list of enemies
@@ -28,6 +27,7 @@ namespace RPG
         SpriteBatch spriteBatch;
         ScreenManager screenManager = new ScreenManager();
         InputHelper inputHelper = new InputHelper();
+        private static AssetManager assetManager;
         private static System.Random rng = new System.Random();
 
         // Sprites
@@ -45,6 +45,7 @@ namespace RPG
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            assetManager = new AssetManager(Content);
         }
 
         protected override void Initialize()
@@ -78,8 +79,7 @@ namespace RPG
 
         protected override void LoadContent()
         {
-            GuiScreen.loadCommonContent(Content);
-            screenManager.loadContent(Content);
+            screenManager.loadContent(assetManager);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             FileManager f = new FileManager();
         }
@@ -129,5 +129,6 @@ namespace RPG
         }
 
         public static System.Random RNGsus => rng;
+        public static AssetManager AssetManager => assetManager;
     }
 }

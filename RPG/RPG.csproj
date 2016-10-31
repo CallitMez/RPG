@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AssetManager\AssetManager.cs" />
     <Compile Include="Battle.cs" />
     <Compile Include="Gui\Elements\GuiLabel.cs" />
     <Compile Include="Gui\GuiElement.cs" />

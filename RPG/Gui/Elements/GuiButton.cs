@@ -29,9 +29,9 @@ namespace RPG.Gui.Elements
             this.spriteName = spriteName;
         }
 
-        public override void loadContent(ContentManager content)
+        public override void loadContent(AssetManager content)
         {
-            this.sprite = content.Load<Texture2D>(spriteName);
+            this.sprite = content.getTexture(spriteName);
             if (sprite == null) throw new Exception();
         }
 

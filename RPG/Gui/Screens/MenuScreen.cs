@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RPG.Gui.Elements;
+using RPG;
 
 
 namespace RPG.Gui.Screens
@@ -43,9 +44,17 @@ namespace RPG.Gui.Screens
             throw new NotImplementedException();
         }
 
-        public override void loadContent(ContentManager Content)
+        public override void loadContent(AssetManager content)
         {
-            base.loadContent(Content);
+            base.loadContent(content);
+            this.clearElements();
+            List<GuiLabel> battleLabels = OngoingBattles.getBattleLabels(font);
+
+            foreach (GuiLabel label in battleLabels)
+            {
+                label.Font = content.getFont(font);
+                this.addElement(label);
+            }
         }
 
         public override void update(GameTime gameTime, InputHelper inputHelper)
@@ -53,12 +62,6 @@ namespace RPG.Gui.Screens
             base.update(gameTime, inputHelper);
             this.clearElements();
             List<GuiLabel> battleLabels = OngoingBattles.getBattleLabels(font);
-
-            foreach (GuiLabel label in battleLabels)
-            {
-                label.Font = getFont(font);
-                this.addElement(label);
-            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace RPG.Gui
             screenList.Add(heroScreen);
         }
 
-        public void loadContent(ContentManager Content)
+        public void loadContent(AssetManager Content)
         {
             foreach(GuiScreen s in screenList)
             {
