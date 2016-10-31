@@ -21,6 +21,7 @@ namespace RPG
         TurnLog currentTurn;
         double elapsedTime = 0;
         double speedModifier;
+        GuiLabel labelHeroStats, labelEnemyStats, labelElapsedTime, labelCountdown;
 
         public Battle(List<Creature> heroes, List<Creature> enemies, double speedModifier = 1)//TODO vang droptemplate af (standaard 0)
         {
@@ -34,7 +35,7 @@ namespace RPG
             //met behulp van speedmodifier berekend wordt of hij afgelopen is. (speedmodifier*battletimer (minuten))
         }
 
-        public bool proceed()
+        private bool proceed()
         {
 
             currentTurn = new TurnLog(heroes, enemies, 0, null, null, 0);
@@ -62,6 +63,7 @@ namespace RPG
 
         public bool update(GameTime gameTime)
         {
+            updateLabels();
             everyone = everyone.OrderBy(c => c.battleCounter).ToList();
             //removedead();
             Creature turnCreature = everyone[0];
@@ -189,6 +191,22 @@ namespace RPG
             removeDead();
         }
 
+        public void onFinish()
+        {
+            labelHeroStats.setLabelText("");
+            labelEnemyStats.setLabelText("");
+            labelElapsedTime.setLabelText("");
+            labelCountdown.setLabelText("");
+        }
+
+        public void updateLabels()
+        {
+            labelHeroStats.setLabelText("Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.");
+            labelEnemyStats.setLabelText("Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.");
+            labelElapsedTime.setLabelText("Elapsed time: " + Math.Round(elapsedTime, 2));
+            labelCountdown.setLabelText("Countdown: " + Math.Round(countdown, 2));
+        }
+
         public List<GuiLabel> getLabels(int xPos, string fontName)
         {
             // Create a list of labels
@@ -199,10 +217,15 @@ namespace RPG
             // TODO it would be better to make these labels fields and update them, rather than creating new ones every update.
             // This would also eliminate the need to re-add them to another list every update, as the reference stays equal. -Ebilkill
 
-            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 0)  , "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", fontName));
-            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 200), "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", fontName));
-            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 300), "Elapsed time " + Math.Round(elapsedTime, 2), fontName));
-            allLabels.Add(GuiLabel.createNewLabel(new Vector2(xPos, 400), "Countdown " + Math.Round(countdown, 2), fontName));
+            labelHeroStats = GuiLabel.createNewLabel(new Vector2(xPos, 0), "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", fontName);
+            labelEnemyStats = GuiLabel.createNewLabel(new Vector2(xPos, 200), "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", fontName);
+            labelElapsedTime = GuiLabel.createNewLabel(new Vector2(xPos, 300), "Elapsed time " + Math.Round(elapsedTime, 2), fontName);
+            labelCountdown = GuiLabel.createNewLabel(new Vector2(xPos, 400), "Countdown " + Math.Round(countdown, 2), fontName);
+
+            allLabels.Add(labelHeroStats);
+            allLabels.Add(labelEnemyStats);
+            allLabels.Add(labelElapsedTime);
+            allLabels.Add(labelCountdown);
 
             // Return the generated list
             return allLabels;

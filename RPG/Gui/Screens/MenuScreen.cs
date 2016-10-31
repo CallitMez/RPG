@@ -60,8 +60,6 @@ namespace RPG.Gui.Screens
         public override void update(GameTime gameTime, InputHelper inputHelper)
         {
             base.update(gameTime, inputHelper);
-            this.clearElements();
-            List<GuiLabel> battleLabels = OngoingBattles.getBattleLabels(font);
         }
     }
 }
