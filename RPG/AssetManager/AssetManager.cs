@@ -30,20 +30,20 @@ namespace RPG
         }
 
         // TODO check if this is actually possible?
-        /*public T getAsset<T>(string name) where T : class
+        public T getAsset<T>(string name) where T : class
         {
-            object s = textureLoader[name] as T;
-            if (s != null)
+            object s = textureLoader[name];
+            if (s is T)
                 return (T) s;
 
-            s = fontLoader[name] as T;
-            if (s != null)
+            s = fontLoader[name];
+            if (s is T)
                 return (T) s;
 
 
             // Can't find an asset that works? Well, fuck that D:
             return null;
-        }*/
+        }
 
         private class AssetLoader<T>
         {
