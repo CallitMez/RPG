@@ -38,6 +38,7 @@ namespace RPG
                 if (ongoingBattleList.Contains(b))
                 {
                     ongoingBattleList.Remove(b);
+                    b.onFinish();
                 }
             }
         }
