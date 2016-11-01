@@ -88,7 +88,7 @@ namespace RPG.Gui
                     GuiElement element = elements[i];
                     if (element.Bounds.Contains(inputHelper.MousePosition)) {
                         // Handle the click
-                        element.onClick();
+                        element.onClick(new Events.ClickEvent(inputHelper.MousePosition));
 
                         // Make this element active
                         activeElement = i;

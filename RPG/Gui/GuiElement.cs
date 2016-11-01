@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using RPG.Gui.Events;
 
 namespace RPG.Gui
 {
@@ -31,7 +32,7 @@ namespace RPG.Gui
         /// <param name="graphics">The GraphicsDevice used by the game window.</param>
         public abstract void drawElement(SpriteBatch spriteBatch, GraphicsDevice graphics);
 
-        public virtual void onClick()
+        public virtual void onClick(ClickEvent @event)
         {
         }
 

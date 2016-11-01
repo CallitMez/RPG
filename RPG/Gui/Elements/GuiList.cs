@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using RPG.Gui.Events;
 
 namespace RPG.Gui.Elements
 {
@@ -53,10 +54,12 @@ namespace RPG.Gui.Elements
             // Create the up-button
             up = new GuiButton(new Rectangle(new Point(bounds.Right - 16, bounds.Top), new Point(16)), "testure");
             up.ClickHandler = () => scroll(true);
+            up.loadContent(RPGGame.AssetManager);
 
             // Create the down-button
             down = new GuiButton(new Rectangle(new Point(bounds.Right - 16, bounds.Bottom - 16), new Point(16)), "testure");
             down.ClickHandler = () => scroll(false);
+            down.loadContent(RPGGame.AssetManager);
 
             // Create the list-related variables
             labelList = labels;
@@ -75,7 +78,7 @@ namespace RPG.Gui.Elements
         {
             int move = up ? -1 : 1;
 
-            if (currentTop + move < 0 || currentTop + move >= labelList.Count)
+            if (currentTop + move < 0 || currentTop + move + displayableItems > labelList.Count)
             {
                 return;
             }
@@ -94,7 +97,7 @@ namespace RPG.Gui.Elements
             down.drawElement(spriteBatch, graphics);
         }
 
-        public override void loadContent(ContentManager content)
+        public override void loadContent(AssetManager content)
         {
             up.loadContent(content);
             down.loadContent(content);
@@ -102,6 +105,14 @@ namespace RPG.Gui.Elements
                 label.loadContent(content);
         }
 
+        public override void onClick(ClickEvent e)
+        {
+            if (up.Bounds.Contains(e.Position))
+                up.onClick(e);
+
+            if (down.Bounds.Contains(e.Position))
+                down.onClick(e);
+        }
         public List<GuiLabel> AllLabels => labelList;
     }
 }

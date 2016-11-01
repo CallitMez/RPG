@@ -31,7 +31,7 @@ namespace RPG
         private static System.Random rng = new System.Random();
 
         // Sprites
-        public static Texture2D testure;
+        Texture2D testure;
 
         // Battle stuff
         Hero warrior;

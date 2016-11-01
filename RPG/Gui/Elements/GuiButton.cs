@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
+using RPG.Gui.Events;
 
 /// <summary>
 /// -----------------------------------------------
@@ -37,10 +37,10 @@ namespace RPG.Gui.Elements
 
         public override void drawElement(SpriteBatch spriteBatch, GraphicsDevice graphics)
         {
-            spriteBatch.Draw(RPGGame.testure, Bounds, Color.White);
+            spriteBatch.Draw(sprite, Bounds, Color.White);
         }
 
-        public override void onClick()
+        public override void onClick(ClickEvent e)
         {
             clickHandler();
         }
