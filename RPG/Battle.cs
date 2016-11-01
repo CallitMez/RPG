@@ -207,7 +207,7 @@ namespace RPG
             labelCountdown.setLabelText("Countdown: " + Math.Round(countdown, 2));
         }
 
-        public List<GuiLabel> getLabels(int xPos, string fontName)
+        public GuiList getLabels(int xPos, string fontName)
         {
             // Create a list of labels
             List<GuiLabel> allLabels = new List<GuiLabel>();
@@ -228,7 +228,7 @@ namespace RPG
             allLabels.Add(labelCountdown);
 
             // Return the generated list
-            return allLabels;
+            return GuiList.createNewList(new Point(xPos, 0), 3, allLabels);
         }
 
         public void Draw(SpriteBatch spriteBatch, SpriteFont font, int x)

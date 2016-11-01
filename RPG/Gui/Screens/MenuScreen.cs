@@ -48,12 +48,13 @@ namespace RPG.Gui.Screens
         {
             base.loadContent(content);
             this.clearElements();
-            List<GuiLabel> battleLabels = OngoingBattles.getBattleLabels(font);
+            List<GuiList> battleLabels = OngoingBattles.getBattleLabels(font);
 
-            foreach (GuiLabel label in battleLabels)
+            foreach (GuiList list in battleLabels)
             {
-                label.Font = content.getFont(font);
-                this.addElement(label);
+                foreach (GuiLabel label in list.AllLabels)
+                    label.Font = content.getFont(font);
+                this.addElement(list);
             }
         }
 

@@ -37,7 +37,7 @@ namespace RPG.Gui.Elements
 
         public override void drawElement(SpriteBatch spriteBatch, GraphicsDevice graphics)
         {
-            spriteBatch.Draw(sprite, Bounds, Color.White);
+            spriteBatch.Draw(RPGGame.testure, Bounds, Color.White);
         }
 
         public override void onClick()

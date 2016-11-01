@@ -43,22 +43,19 @@ namespace RPG
             }
         }
 
-        public static List<GuiLabel> getBattleLabels(string fontName)
+        public static List<GuiList> getBattleLabels(string fontName)
         {
             // Create a list of labels
-            List<GuiLabel> labels = new List<Gui.Elements.GuiLabel>();
+            List<GuiList> battlesInformation = new List<GuiList>();
 
             for (int i = 0; i < ongoingBattleList.Count; ++i)
             {
-                List<GuiLabel> battleLabels = ongoingBattleList[i].getLabels(300 * i, fontName);
-                foreach (GuiLabel label in battleLabels)
-                {
-                    labels.Add(label);
-                }
+                GuiList battleLabels = ongoingBattleList[i].getLabels(300 * i, fontName);
+                battlesInformation.Add(battleLabels);
             }
 
             // Return the created list
-            return labels;
+            return battlesInformation;
         }
 
         public static void draw(SpriteBatch spriteBatch, SpriteFont font)
