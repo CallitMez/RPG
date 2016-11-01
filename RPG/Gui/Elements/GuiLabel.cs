@@ -45,7 +45,7 @@ namespace RPG.Gui.Elements
 
         public override void loadContent(AssetManager content)
         {
-            this.font = content.getFont(this.fontName);
+            this.font = content.getAsset<SpriteFont>(this.fontName);
         }
 
         private void calculateBounds(Vector2 position)

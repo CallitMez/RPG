@@ -10,71 +10,47 @@ namespace RPG
 {
     public class AssetManager
     {
-        private AssetLoader<Texture2D> textureLoader;
-        private AssetLoader<SpriteFont> fontLoader;
+        private Dictionary<string, object> assetDict;
+        private ContentManager content;
 
         public AssetManager(ContentManager content)
         {
-            textureLoader = new AssetLoader<Texture2D>(content);
-            fontLoader = new AssetLoader<SpriteFont>(content);
+            assetDict = new Dictionary<string, object>();
+            this.content = content;
         }
 
-        public Texture2D getTexture(string name)
-        {
-            return textureLoader[name];
-        }
-
-        public SpriteFont getFont(string name)
-        {
-            return fontLoader[name];
-        }
-
-        // TODO check if this is actually possible?
+        /// <summary>
+        /// Get an asset from this <code>AssetManager</code>. Load it if it doesn't exist.
+        /// </summary>
+        /// <typeparam name="T">The type of the asset to load.</typeparam>
+        /// <param name="name">The name of the asset to load.</param>
+        /// <returns>The asset to load.</returns>
         public T getAsset<T>(string name) where T : class
         {
-            object s = textureLoader[name];
-            if (s is T)
-                return (T) s;
+            // Check if the asset exists
+            if(assetDict.ContainsKey(name))
+            {
+                object s = assetDict[name];
+                if (s is T)
+                    return (T)s;
 
-            s = fontLoader[name];
-            if (s is T)
-                return (T) s;
+                // The asset exists, but it is not of this type. This must be an error.
+                throw new ArgumentException("Asset " + name + " was loaded before, but is not of this type.");
+            }
 
-
-            // Can't find an asset that works? Well, fuck that D:
-            return null;
+            // The asset does not yet exist. Let's make it so
+            assetDict[name] = content.Load<T>(name);
+            return (T) assetDict[name];
         }
 
-        private class AssetLoader<T>
+        /// <summary>
+        /// Alternative to <code>T getAsset&lt;T&gt;</code>, but less type safe.
+        /// </summary>
+        /// <param name="s">The name of the asset to load</param>
+        /// <returns>An <code>object</code> representing the asset.</returns>
+        public object this[string s]
         {
-            ContentManager content;
-            Dictionary<string, T> assetDict;
-
-            public AssetLoader(ContentManager content)
-            {
-                this.content = content;
-                assetDict = new Dictionary<string, T>();
-            }
-
-            public T getAsset(string name)
-            {
-                // Return the loaded asset if it exists
-                if (assetDict.ContainsKey(name))
-                    return assetDict[name];
-
-                // Try loading it if it hasn't been loaded before
-                T asset = content.Load<T>(name);
-                assetDict[name] = asset;
-                return asset;
-            }
-
-            public T this[string name]
-            {
-                get
-                {
-                    return getAsset(name);
-                }
-            }
+            get { return assetDict[s]; }
         }
     }
 }

@@ -46,15 +46,12 @@ namespace RPG.Gui.Screens
 
         public override void loadContent(AssetManager content)
         {
-            base.loadContent(content);
-            this.clearElements();
             List<GuiLabel> battleLabels = OngoingBattles.getBattleLabels(font);
-
             foreach (GuiLabel label in battleLabels)
             {
-                label.Font = content.getFont(font);
                 this.addElement(label);
             }
+            base.loadContent(content);
         }
 
         public override void update(GameTime gameTime, InputHelper inputHelper)

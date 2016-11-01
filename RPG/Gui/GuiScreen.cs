@@ -19,22 +19,11 @@ namespace RPG.Gui
 
         public static Vector2 getLabelSize(string labelText, string fontName)
         {
-            // Get the glyph sizes
-            SpriteFont font = RPGGame.AssetManager.getFont(fontName);
-            Dictionary<char, SpriteFont.Glyph> charSizes = font.GetGlyphs();
-
-            // Create a new size vector
-            Vector2 size = Vector2.Zero;
-
-            // Get the biggest height and the total width
-            foreach (char c in labelText)
-            {
-                size.X += charSizes[c].WidthIncludingBearings;
-                size.Y = Math.Max(size.Y, charSizes[c].BoundsInTexture.Size.Y);
-            }
-
-            // Return the size
-            return size;
+            // Get the font
+            SpriteFont font = RPGGame.AssetManager.getAsset<SpriteFont>(fontName);
+            
+            // Return a measurement for the string plus some padding.
+            return font.MeasureString(labelText) + new Vector2(8, 8);
         }
 
         protected GuiScreen()
