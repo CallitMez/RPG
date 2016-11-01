@@ -13,10 +13,14 @@ namespace RPG.Gui
     abstract class GuiElement
     {
         private Rectangle bounds;
+        protected bool visible;
+        private GuiElement parent;
 
         protected GuiElement(Rectangle bounds)
         {
             this.bounds = bounds;
+            visible = true;
+            parent = null;
         }
 
         /// <summary>
@@ -40,6 +44,10 @@ namespace RPG.Gui
         {
         }
 
+        public virtual void onVisibilityChange(bool newVisibility)
+        {
+        }
+
         /// <summary>
         /// Repositions this GuiElement to another place.
         /// </summary>
@@ -58,6 +66,31 @@ namespace RPG.Gui
             protected set
             {
                 bounds = value;
+            }
+        }
+
+        public virtual bool Visible
+        {
+            get { return visible; }
+            set
+            {
+                if (visible != value)
+                {
+                    onVisibilityChange(value);
+                    visible = value;
+                }
+            }
+        }
+
+        public GuiElement Parent
+        {
+            set
+            {
+                this.parent = value;
+            }
+            protected get
+            {
+                return parent;
             }
         }
     }

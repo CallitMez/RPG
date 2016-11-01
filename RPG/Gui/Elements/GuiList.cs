@@ -64,14 +64,28 @@ namespace RPG.Gui.Elements
             // Create the list-related variables
             labelList = labels;
             currentTop = 0;
+
+            // Make sure all labels know this is their parent
+            foreach (GuiLabel label in labelList)
+            {
+                label.Parent = this;
+            }
+
+            // Make sure the buttons know this is their parent
+            up.Parent = this;
+            down.Parent = this;
         }
 
-        private void calculateLabelPositions()
+        public void calculateLabelPositions()
         {
+            bool visible = true;
             for (int i = 0; i < labelList.Count; ++i)
             {
                 labelList[i].move(new Point(Bounds.Location.X, Bounds.Location.Y - (currentTop - i) * itemHeight));
+                if (!labelList[i].Visible)
+                    visible = false;
             }
+            Visible = visible;
         }
 
         private void scroll(bool up)
@@ -89,6 +103,8 @@ namespace RPG.Gui.Elements
 
         public override void drawElement(SpriteBatch spriteBatch, GraphicsDevice graphics)
         {
+            if (!Visible)
+                return;
             for (int i = currentTop; i < currentTop + displayableItems; ++i)
             {
                 labelList[i].drawElement(spriteBatch, graphics);

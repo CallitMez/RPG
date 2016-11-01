@@ -193,10 +193,10 @@ namespace RPG
 
         public void onFinish()
         {
-            labelHeroStats.setLabelText("");
-            labelEnemyStats.setLabelText("");
-            labelElapsedTime.setLabelText("");
-            labelCountdown.setLabelText("");
+            labelHeroStats.Visible = false;
+            labelEnemyStats.Visible = false;
+            labelElapsedTime.Visible = false;
+            labelCountdown.Visible = false;
         }
 
         public void updateLabels()

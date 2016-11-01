@@ -69,6 +69,7 @@ namespace RPG.Gui
         public virtual void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             graphicsDevice.Clear(Color.White);
+            // Draw all elements
             foreach (GuiElement element in elements)
             {
                 element.drawElement(spriteBatch, graphicsDevice);
@@ -86,6 +87,12 @@ namespace RPG.Gui
                 for (int i = 0; i < elements.Count; ++i)
                 {
                     GuiElement element = elements[i];
+
+                    // Only visible elements have events associated with them
+                    if (!element.Visible)
+                        continue;
+
+                    // Check if this is a clicked element
                     if (element.Bounds.Contains(inputHelper.MousePosition)) {
                         // Handle the click
                         element.onClick(new Events.ClickEvent(inputHelper.MousePosition));
@@ -96,8 +103,23 @@ namespace RPG.Gui
                 }
             }
 
-            if(activeElement >= 0 && activeElement < elements.Count)
-                elements[activeElement].handleKeyboardInput(inputHelper);
+            // Check if there is an active element and if it's visible
+            GuiElement active = ActiveElement;
+            if(active != null && active.Visible)
+                active.handleKeyboardInput(inputHelper);
+        }
+
+        private GuiElement ActiveElement
+        {
+            get
+            {
+                // If there is an active element, return it
+                if (activeElement >= 0 && activeElement < elements.Count)
+                    return elements[activeElement];
+
+                // Return null if there is no such element
+                return null;
+            }
         }
     }
 }

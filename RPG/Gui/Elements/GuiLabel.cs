@@ -40,6 +40,8 @@ namespace RPG.Gui.Elements
 
         public override void drawElement(SpriteBatch spriteBatch, GraphicsDevice graphics)
         {
+            if (!Visible)
+                return;
             spriteBatch.DrawString(font, labelText, Bounds.Location.ToVector2(), labelColor);
         }
 
@@ -58,6 +60,13 @@ namespace RPG.Gui.Elements
         {
             this.labelText = text;
             this.calculateBounds(Bounds.Location.ToVector2());
+        }
+
+        public override void onVisibilityChange(bool newVisibility)
+        {
+            base.onVisibilityChange(newVisibility);
+            if (Parent is GuiList)
+                (Parent as GuiList).calculateLabelPositions();
         }
 
         public SpriteFont Font
