@@ -17,26 +17,6 @@ namespace RPG.Gui
         private List<GuiElement> elements;
         private int activeElement;
 
-        public static Vector2 getLabelSize(string labelText, string fontName)
-        {
-            // Get the glyph sizes
-            SpriteFont font = RPGGame.AssetManager.getFont(fontName);
-            Dictionary<char, SpriteFont.Glyph> charSizes = font.GetGlyphs();
-
-            // Create a new size vector
-            Vector2 size = Vector2.Zero;
-
-            // Get the biggest height and the total width
-            foreach (char c in labelText)
-            {
-                size.X += charSizes[c].WidthIncludingBearings;
-                size.Y = Math.Max(size.Y, charSizes[c].BoundsInTexture.Size.Y);
-            }
-
-            // Return the size
-            return size;
-        }
-
         protected GuiScreen()
         {
             elements = new List<GuiElement>();
