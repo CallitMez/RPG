@@ -13,26 +13,24 @@ namespace RPG.Gui
 {
     class ScreenManager
     {
-        public static GuiScreen battleScreen = new BattleScreen();
-        public static GuiScreen menuScreen = new MenuScreen();
-        public static GuiScreen inventoryScreen = new InventoryScreen();
-        public static GuiScreen heroScreen = new HeroScreen();
-        public static GuiScreen questScreen = new QuestScreen();
-        public static List<GuiScreen> screenList = new List<GuiScreen>();
-        private static int selected = 1;
+        private static ScreenManager instance = new ScreenManager();
+        public Dictionary<string, GuiScreen> screenDict = new Dictionary<string, GuiScreen>();
+        private string currentScreen;
 
-        public ScreenManager()
+        private ScreenManager()
         {
-            screenList.Add(battleScreen);
-            screenList.Add(menuScreen);
-            screenList.Add(inventoryScreen);
-            screenList.Add(questScreen);
-            screenList.Add(heroScreen);
+            screenDict.Add("battle", new BattleScreen());
+            screenDict.Add("menu", new MenuScreen());
+            screenDict.Add("inventory", new InventoryScreen("font"));
+            screenDict.Add("quest", new QuestScreen());
+            screenDict.Add("hero", new HeroScreen());
+
+            currentScreen = "";
         }
 
         public void loadContent(AssetManager Content)
         {
-            foreach(GuiScreen s in screenList)
+            foreach(GuiScreen s in screenDict.Values)
             {
                 s.loadContent(Content);
             }
@@ -40,20 +38,35 @@ namespace RPG.Gui
 
         public void draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            screenList[selected].draw(spriteBatch, graphicsDevice);
+            CurrentScreen.draw(spriteBatch, graphicsDevice);
         }
 
         public void update(GameTime gameTime, InputHelper inputHelper)
         {
-            foreach (GuiScreen s in screenList)
+            foreach (GuiScreen s in screenDict.Values)
             {
                 s.update(gameTime, inputHelper);
             }
         }
 
-        public static void selectScreen(GuiScreen screen)
+        public void selectScreen(string screen)
         {
-            selected = screenList.IndexOf(screen);
+            if (screenDict.ContainsKey(screen))
+            {
+                currentScreen = screen;
+                return;
+            }
+            throw new KeyNotFoundException("Screen '" + screen + "' is unknown.");
         }
+
+        public GuiScreen CurrentScreen
+        {
+            get
+            {
+                return currentScreen == "" ? null : screenDict[currentScreen];
+            }
+        }
+
+        public static ScreenManager Instance => instance;
     }
 }

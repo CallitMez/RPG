@@ -16,34 +16,42 @@ namespace RPG.Gui.Elements
         private GuiButton down;
         private List<GuiLabel> labelList;
         private int currentTop;
-        private int displayableItems;
+        private int displayableItemsCount;
         private int itemHeight;
         private int itemWidth;
+        private int maxWidth;
 
         public static GuiList createNewList(Point position, int displayableItems, List<GuiLabel> labels, int maxWidth = -1)
         {
             // Create a container for the width of the display
-            int width = 16;
+            int width = maxWidth;
 
-            // Get the biggest width of labels
-            foreach (GuiLabel label in labels)
+            // If the max width is bogus, calculate the width
+            if(width < 16)
             {
-                width = Math.Max(label.Bounds.Width + 16, width);
-            }
+                width = 16;
 
-            // Make sure the width of the labels is smaller than the maxWidth, but that the list can always contain the buttons.
-            if (maxWidth > 16)
-            {
-                width = Math.Min(maxWidth, width);
+                // Get the biggest width of labels
+                foreach (GuiLabel label in labels)
+                {
+                    width = Math.Max(label.Bounds.Width + 16, width);
+                }
             }
 
             // Get the height of the list.
-            int height = labels[0].Bounds.Height * displayableItems;
-
+            int height = 0;
+            try
+            {
+                height = labels[0].Bounds.Height * displayableItems;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                height = 32;
+            }
             // Return a new GuiList based on position, width and height. 
             GuiList retVal = new GuiList(new Rectangle(position, new Point(width, height)), labels);
-            retVal.displayableItems = displayableItems;
-            retVal.itemHeight = labels[0].Bounds.Height;
+            retVal.displayableItemsCount = displayableItems;
+            retVal.itemHeight = height / displayableItems;
             retVal.itemWidth = width - 16;
             retVal.calculateLabelPositions();
             return retVal;
@@ -52,12 +60,12 @@ namespace RPG.Gui.Elements
         private GuiList(Rectangle bounds, List<GuiLabel> labels) : base(bounds)
         {
             // Create the up-button
-            up = new GuiButton(new Rectangle(new Point(bounds.Right - 16, bounds.Top), new Point(16)), "testure");
+            up = new GuiButton(new Rectangle(new Point(0, 0), new Point(16)), "testure");
             up.ClickHandler = () => scroll(true);
             up.loadContent(RPGGame.AssetManager);
 
             // Create the down-button
-            down = new GuiButton(new Rectangle(new Point(bounds.Right - 16, bounds.Bottom - 16), new Point(16)), "testure");
+            down = new GuiButton(new Rectangle(new Point(0, 0), new Point(16)), "testure");
             down.ClickHandler = () => scroll(false);
             down.loadContent(RPGGame.AssetManager);
 
@@ -74,25 +82,67 @@ namespace RPG.Gui.Elements
             // Make sure the buttons know this is their parent
             up.Parent = this;
             down.Parent = this;
+
+            maxWidth = bounds.Width;
+        }
+
+        private bool recalculateBounds()
+        {
+            if (labelList.Count <= 0)
+            {
+                Visible = false;
+                return false;
+            }
+
+            // Buttons should be visible only when we have to scroll...
+            up.Visible = down.Visible = labelList.Count > displayableItemsCount;
+
+            itemHeight = labelList[0].Bounds.Height;
+            int height = itemHeight * Math.Min(labelList.Count, displayableItemsCount);
+            int width = maxWidth;
+
+            Bounds = new Rectangle(Bounds.Location, new Point(width, height));
+
+            // We're visible, this should be fine
+            return true;
         }
 
         public void calculateLabelPositions()
         {
+            // If we're not visible, just don't do anything at all.
+            if (!recalculateBounds())
+            {
+                return;
+            }
+
+            // Assume we're visible
             bool visible = true;
+
+            // Set every label's position
             for (int i = 0; i < labelList.Count; ++i)
             {
+                // Set the location of the label to its position in the list
                 labelList[i].move(new Point(Bounds.Location.X, Bounds.Location.Y - (currentTop - i) * itemHeight));
                 if (!labelList[i].Visible)
                     visible = false;
             }
             Visible = visible;
+
+            up.move(new Point(Bounds.Right - 16, Bounds.Top));
+            down.move(new Point(Bounds.Right - 16, Bounds.Bottom - 16));
+        }
+
+        public void clear()
+        {
+            this.labelList.Clear();
+            calculateLabelPositions();
         }
 
         private void scroll(bool up)
         {
             int move = up ? -1 : 1;
 
-            if (currentTop + move < 0 || currentTop + move + displayableItems > labelList.Count)
+            if (currentTop + move < 0 || currentTop + move + displayableItemsCount > labelList.Count)
             {
                 return;
             }
@@ -105,7 +155,8 @@ namespace RPG.Gui.Elements
         {
             if (!Visible)
                 return;
-            for (int i = currentTop; i < currentTop + displayableItems; ++i)
+
+            for (int i = currentTop; i < currentTop + displayableItemsCount && i < labelList.Count; ++i)
             {
                 labelList[i].drawElement(spriteBatch, graphics);
             }
@@ -129,6 +180,35 @@ namespace RPG.Gui.Elements
             if (down.Bounds.Contains(e.Position))
                 down.onClick(e);
         }
+
+        public void addLabel(GuiLabel label, int index = -1)
+        {
+            // Add the label, possibly at a specified index
+            if (index < 0 || index >= labelList.Count)
+                labelList.Add(label);
+            else
+                labelList.Insert(index, label);
+
+            // Make sure all labels are in the correct positions
+            calculateLabelPositions();
+        }
+
+        public void removeLabel(int index)
+        {
+            // Only remove the label if it's in a valid position
+            if (index > 0 && index < labelList.Count)
+            {
+                labelList.RemoveAt(index);
+            }
+        }
+
+        // TODO: see if this works as intended
+        public void removeLabel(GuiLabel label)
+        {
+            int index = labelList.FindIndex(gl => label.Equals(gl));
+            removeLabel(index);
+        }
+
         public List<GuiLabel> AllLabels => labelList;
     }
 }

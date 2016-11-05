@@ -25,7 +25,6 @@ namespace RPG
         // Basics
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        ScreenManager screenManager = new ScreenManager();
         InputHelper inputHelper = new InputHelper();
         private static AssetManager assetManager;
         private static System.Random rng = new System.Random();
@@ -79,7 +78,8 @@ namespace RPG
 
         protected override void LoadContent()
         {
-            screenManager.loadContent(assetManager);
+            ScreenManager.Instance.loadContent(assetManager);
+            ScreenManager.Instance.selectScreen("menu");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             FileManager f = new FileManager();
         }
@@ -94,7 +94,7 @@ namespace RPG
             inputHelper.Update(gameTime);
             // Press escape to exit, will most likely have to be removed
             // at some point because we like to have an onscreen exit button
-            screenManager.update(gameTime, inputHelper);
+            ScreenManager.Instance.update(gameTime, inputHelper);
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //while (anyBattle.proceed()) { }
 
@@ -115,7 +115,7 @@ namespace RPG
            
             spriteBatch.Begin();
             // Blank lines for readability
-            screenManager.draw(spriteBatch, GraphicsDevice);
+            ScreenManager.Instance.draw(spriteBatch, GraphicsDevice);
             
             
             //GraphicsDevice.Clear(Color.White);
