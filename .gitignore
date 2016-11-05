@@ -243,8 +243,3 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-
-###################################################################################################################
-
-# Also ignore the testing folder
-RPGTests/
