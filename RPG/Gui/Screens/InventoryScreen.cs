@@ -11,7 +11,7 @@ using RPG.Gui.Elements;
 
 namespace RPG.Gui.Screens
 {
-    class InventoryScreen : GuiScreen
+    public class InventoryScreen : GuiScreen
     {
         InventoryPlayer inventory;
         private string inventoryFont;

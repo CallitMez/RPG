@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class FileManager
+    public class FileManager
     {
         string path;
         public FileManager()

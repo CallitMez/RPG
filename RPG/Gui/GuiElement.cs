@@ -10,7 +10,7 @@ using RPG.Gui.Events;
 
 namespace RPG.Gui
 {
-    abstract class GuiElement
+    public abstract class GuiElement
     {
         private Rectangle bounds;
         protected bool visible;

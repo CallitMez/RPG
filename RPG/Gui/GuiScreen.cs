@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPG.Gui
 {
-    abstract class GuiScreen
+    public abstract class GuiScreen
     {
         private List<GuiElement> elements;
         private int activeElement;

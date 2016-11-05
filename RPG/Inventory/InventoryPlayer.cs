@@ -10,7 +10,7 @@ using RPG.Gui.Screens;
 
 namespace RPG.Inventory
 {
-    class InventoryPlayer
+    public class InventoryPlayer
     {
         List<InventorySlot> contentList;
         GuiList itemsToDraw;

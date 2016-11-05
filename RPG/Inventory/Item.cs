@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Inventory
 {
-    class Item
+    public class Item
     {
         private static Dictionary<string, Item> allItems = new Dictionary<string, Item>();
         int maxStackSize;

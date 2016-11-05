@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPG
 {
-    class InputHelper
+    public class InputHelper
     {
         /* 
          * current and previous mouse/keyboard states

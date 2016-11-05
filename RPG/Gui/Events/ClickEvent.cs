@@ -2,7 +2,7 @@
 
 namespace RPG.Gui.Events
 {
-    class ClickEvent
+    public class ClickEvent
     {
         Vector2 position;
 
