@@ -22,19 +22,19 @@ namespace RPG.Gui.Screens
             this.inventoryFont = inventoryFont;
 
             // Add some buttons to add / delete from player inv
-            GuiButton buttonAddSword = new GuiButton(new Rectangle(0, 300, 16, 16), "testure");
+            GuiButton buttonAddSword = GuiButton.createButtonWithLabel(new Point(0, 300), "Add Sword", "testure", "font");
             buttonAddSword.ClickHandler = () => inventory.addItem(Item.getItem("sword"));
             addElement(buttonAddSword);
 
-            GuiButton buttonAddPotion = new GuiButton(new Rectangle(32, 300, 16, 16), "testure");
+            GuiButton buttonAddPotion = GuiButton.createButtonWithLabel(new Point(buttonAddSword.Bounds.Right + 16, buttonAddSword.Bounds.Top), "Add Potion", "testure", "font");
             buttonAddPotion.ClickHandler = () => inventory.addItem(Item.getItem("hpPot"));
             addElement(buttonAddPotion);
 
-            GuiButton buttonRemoveSword = new GuiButton(new Rectangle(0, 332, 16, 16), "testure");
+            GuiButton buttonRemoveSword = GuiButton.createButtonWithLabel(new Point(buttonAddSword.Bounds.Left, buttonAddSword.Bounds.Bottom + 16), "Remove Sword", "testure", "font");
             buttonRemoveSword.ClickHandler = () => inventory.removeItem(Item.getItem("sword"));
             addElement(buttonRemoveSword);
 
-            GuiButton buttonRemovePotion = new GuiButton(new Rectangle(32, 332, 16, 16), "testure");
+            GuiButton buttonRemovePotion = GuiButton.createButtonWithLabel(new Point(buttonAddPotion.Bounds.Left, buttonAddPotion.Bounds.Bottom + 16), "Remove Potion", "testure", "font");
             buttonRemovePotion.ClickHandler = () => inventory.removeItem(Item.getItem("hpPot"));
             addElement(buttonRemovePotion);
         }
