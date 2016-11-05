@@ -8,7 +8,7 @@ namespace RPG.Inventory
 {
     public class Item
     {
-        private static Dictionary<string, Item> allItems = new Dictionary<string, Item>();
+        private static Dictionary<string, Item> allItems;
         int maxStackSize;
         string name;
         private Item(string name, int maxStackSize = 1)
@@ -19,6 +19,9 @@ namespace RPG.Inventory
 
         public static void loadItems(FileManager f)
         {
+            if (allItems != null)
+                return;
+            allItems = new Dictionary<string, Item>();
             allItems.Add("sword", new Item("sword"));
             allItems.Add("hpPot", new Item("hpPot", 5));
         }

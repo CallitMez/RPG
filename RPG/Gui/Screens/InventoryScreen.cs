@@ -29,6 +29,14 @@ namespace RPG.Gui.Screens
             GuiButton buttonAddPotion = new GuiButton(new Rectangle(32, 300, 16, 16), "testure");
             buttonAddPotion.ClickHandler = () => inventory.addItem(Item.getItem("hpPot"));
             addElement(buttonAddPotion);
+
+            GuiButton buttonRemoveSword = new GuiButton(new Rectangle(0, 332, 16, 16), "testure");
+            buttonRemoveSword.ClickHandler = () => inventory.removeItem(Item.getItem("sword"));
+            addElement(buttonRemoveSword);
+
+            GuiButton buttonRemovePotion = new GuiButton(new Rectangle(32, 332, 16, 16), "testure");
+            buttonRemovePotion.ClickHandler = () => inventory.removeItem(Item.getItem("hpPot"));
+            addElement(buttonRemovePotion);
         }
 
         public override void loadContent(AssetManager content)
