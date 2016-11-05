@@ -33,9 +33,18 @@ namespace RPG.Gui.Screens
             heroList.Add(hero);
             newBattle = new Battle(heroList,baddudes);
             OngoingBattles.ongoingBattleList.Add(newBattle);
+
+            // Add the Exit button
             GuiButton buttonExit = new GuiButton(new Rectangle(0, 0, 32, 32), "testure");
             buttonExit.ClickHandler = kill;
             addElement(buttonExit);
+
+            // Add an Inventory button
+            GuiButton buttonInventory = new GuiButton(new Rectangle(300, 0, 32, 32), "testure");
+            buttonInventory.ClickHandler = () => ScreenManager.Instance.selectScreen("inventory");
+            addElement(buttonInventory);
+
+            // Set the font
             font = "font";
         }
 
@@ -47,7 +56,7 @@ namespace RPG.Gui.Screens
         public override void loadContent(AssetManager content)
         {
             base.loadContent(content);
-            this.clearElements();
+            //this.clearElements();
             List<GuiList> battleLabels = OngoingBattles.getBattleLabels(font);
 
             foreach (GuiList list in battleLabels)

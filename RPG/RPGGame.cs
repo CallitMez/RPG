@@ -82,6 +82,7 @@ namespace RPG
             ScreenManager.Instance.selectScreen("menu");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             FileManager f = new FileManager();
+            Inventory.Item.loadItems(f);
         }
 
         protected override void UnloadContent()
