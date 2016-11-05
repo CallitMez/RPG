@@ -53,10 +53,10 @@
     <Compile Include="Hero.cs" />
     <Compile Include="Gui\Screens\HeroScreen.cs" />
     <Compile Include="InputHelper.cs" />
-    <Compile Include="Inventory.cs" />
+    <Compile Include="Inventory\InventoryPlayer.cs" />
     <Compile Include="Gui\Screens\InventoryScreen.cs" />
-    <Compile Include="InventorySlot.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Inventory\InventorySlot.cs" />
+    <Compile Include="Inventory\Item.cs" />
     <Compile Include="ItemDrop.cs" />
     <Compile Include="Gui\Screens\MenuScreen.cs" />
     <Compile Include="OngoingBattles.cs" />
