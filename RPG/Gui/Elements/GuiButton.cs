@@ -46,7 +46,7 @@ namespace RPG.Gui.Elements
 
         public override void loadContent(AssetManager content)
         {
-            sprite = content.getTexture(spriteName);
+            sprite = content.getAsset<Texture2D>(spriteName);
         }
 
         public override void drawElement(SpriteBatch spriteBatch, GraphicsDevice graphics)

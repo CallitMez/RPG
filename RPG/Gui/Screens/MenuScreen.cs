@@ -62,7 +62,7 @@ namespace RPG.Gui.Screens
             foreach (GuiList list in battleLabels)
             {
                 foreach (GuiLabel label in list.AllLabels)
-                    label.Font = content.getFont(font);
+                    label.Font = content.getAsset<SpriteFont>(font);
                 this.addElement(list);
             }
         }
