@@ -39,18 +39,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssetManager\AssetManager.cs" />
-    <Compile Include="Battle.cs" />
+    <Compile Include="Battles\Battle.cs" />
     <Compile Include="Gui\Elements\GuiLabel.cs" />
     <Compile Include="Gui\Elements\GuiList.cs" />
     <Compile Include="Gui\Events\ClickEvent.cs" />
     <Compile Include="Gui\GuiElement.cs" />
     <Compile Include="Gui\Screens\BattleScreen.cs" />
     <Compile Include="Gui\Elements\GuiButton.cs" />
-    <Compile Include="Creature.cs" />
+    <Compile Include="Creatures\Creature.cs" />
     <Compile Include="DropTemplate.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="Creatures\Enemy.cs" />
     <Compile Include="FileManager.cs" />
-    <Compile Include="Hero.cs" />
+    <Compile Include="Creatures\Hero.cs" />
     <Compile Include="Gui\Screens\HeroScreen.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="Inventory\InventoryPlayer.cs" />
@@ -59,14 +59,14 @@
     <Compile Include="Inventory\Item.cs" />
     <Compile Include="ItemDrop.cs" />
     <Compile Include="Gui\Screens\MenuScreen.cs" />
-    <Compile Include="OngoingBattles.cs" />
+    <Compile Include="Battles\OngoingBattles.cs" />
     <Compile Include="Gui\Screens\QuestScreen.cs" />
     <Compile Include="RPGGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Gui\GuiScreen.cs" />
     <Compile Include="Gui\ScreenManager.cs" />
-    <Compile Include="TurnLog.cs" />
+    <Compile Include="Battles\TurnLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -87,6 +87,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

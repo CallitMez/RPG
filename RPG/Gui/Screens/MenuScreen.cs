@@ -8,8 +8,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RPG.Gui.Elements;
-using RPG;
-
+using RPG.Battles;
+using RPG.Creatures;
 
 namespace RPG.Gui.Screens
 {

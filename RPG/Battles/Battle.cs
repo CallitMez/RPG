@@ -7,8 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RPG.Gui.Elements;
+using RPG.Creatures;
 
-namespace RPG
+namespace RPG.Battles
 {
     class Battle
     {
