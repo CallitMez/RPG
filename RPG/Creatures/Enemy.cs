@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RPG.Creatures
 {
 
-    class Enemy : Creature
+    public class Enemy : Creature
     {
         DropTemplate drops = new DropTemplate();
 

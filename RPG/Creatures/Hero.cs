@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Creatures
 {
-    class Hero : Creature
+    public class Hero : Creature
     {
         public Hero(string name, CreatureStats stats) : base(name, stats, CreatureType.HERO)
         {

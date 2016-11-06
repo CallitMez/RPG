@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPG.Creatures
 {
-    struct CreatureStats
+    public class CreatureStats
     {
         private int attack;
         private int maxHP;

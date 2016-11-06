@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RPG.Battles;
+using Microsoft.Xna.Framework;
 
 namespace RPG.Creatures
 {
-    class Creature
+    public class Creature
     {
         //TODO create class stats to be able to easily modify stats (temporary or permanent). 
         //idea: "public Stats creaturestats;" instead of maxHP,aspd,defense,aggro,etc.
@@ -49,9 +50,24 @@ namespace RPG.Creatures
             stats.battleCounter = stats.attackSpeed;
         }
 
+        /// <summary>
+        /// Causes this creature to take damage.
+        /// </summary>
+        /// <param name="amount">The amount of damage taken.</param>
         public void takeDamage(int amount)
         {
             stats.HP -= amount;
+        }
+
+        /// <summary>
+        /// Causes this creature to heal a certain amount of damage. Will cap at its max HP.
+        /// Creatures can only heal if they are not dead.
+        /// </summary>
+        /// <param name="amount">The amount of damage to heal.</param>
+        public void healDamage(int amount)
+        {
+            if(!IsDead)
+                stats.HP = MathHelper.Clamp(stats.HP + amount, 0, stats.MaxHP);
         }
 
         public string Name => name;
