@@ -65,16 +65,16 @@ namespace RPG.Battles
         public bool update(GameTime gameTime)
         {
             updateLabels();
-            everyone = everyone.OrderBy(c => c.battleCounter).ToList();
+            everyone = everyone.OrderBy(c => c.Stats.battleCounter).ToList();
             //removedead();
             Creature turnCreature = everyone[0];
             elapsedTime += gameTime.ElapsedGameTime.TotalMinutes;
-            if (turnCreature.battleCounter*speedModifier<elapsedTime)
+            if (turnCreature.Stats.battleCounter*speedModifier<elapsedTime)
             {
                 elapsedTime = 0;
                 return proceed();
             }
-            countdown = 60*(turnCreature.battleCounter - elapsedTime);
+            countdown = 60*(turnCreature.Stats.battleCounter - elapsedTime);
             return !finished;
         }
 
@@ -102,12 +102,12 @@ namespace RPG.Battles
 
         public void updateSpeedLuuk()
         {
-            everyone = everyone.OrderBy(c => c.attackSpeed).ToList();
+            everyone = everyone.OrderBy(c => c.Stats.attackSpeed).ToList();
             //removedead();
             battleTimer += 1;
             foreach (Creature c in everyone)
             {
-                if (battleTimer % c.attackSpeed == 0)
+                if (battleTimer % c.Stats.attackSpeed == 0)
                 {
                     turn(c);
                 }
@@ -116,14 +116,9 @@ namespace RPG.Battles
 
         void removeDead()
         {
-            // Make sure all dead creatures are set to 0 hp.
-            foreach (Creature c in everyone)
-                if (c.HP <= 0)
-                    c.HP = 0;
-
             // Remove all dead creatures
-            Predicate<Creature> isDead = 
-                c => c.HP == 0;
+            Predicate<Creature> isDead =
+                c => c.IsDead;
 
             everyone.RemoveAll(isDead);
             heroes.RemoveAll(isDead);
@@ -132,15 +127,15 @@ namespace RPG.Battles
 
         public Creature updateSpeed()
         {
-            everyone = everyone.OrderBy(c => c.battleCounter).ToList();
+            everyone = everyone.OrderBy(c => c.Stats.battleCounter).ToList();
             //removedead();
             Creature turnCreature = everyone[0];
-            double duration = everyone[0].battleCounter;
+            double duration = everyone[0].Stats.battleCounter;
             foreach (Creature c in everyone){
-                c.battleCounter -= duration;
+                c.progressBattle(duration);
             }
             battleTimer += duration;
-            turnCreature.battleCounter = turnCreature.attackSpeed;
+            turnCreature.resetBattleCounter();
             return turnCreature;
         }
 
@@ -171,11 +166,11 @@ namespace RPG.Battles
         {
             int damage;
             Creature defender;
-            Func<Creature, int> attackPriority = ((c) => c.Hate);
+            Func<Creature, int> attackPriority = ((c) => c.Stats.Hate);
             if (heroes.Contains(creature)){
                 enemies = enemies.OrderBy(attackPriority).ToList();
                 defender = enemies[0];
-                damage = creature.Atk;
+                damage = creature.Stats.Attack;
                 defender.takeDamage(damage);
                 //Console.WriteLine("Creature " + creature.Name + " attacks! " + defender.Name + " lost " + creature.Atk + " HP!");
                     
@@ -183,7 +178,7 @@ namespace RPG.Battles
             else{
                 heroes = heroes.OrderBy(attackPriority).ToList();
                 defender = heroes[0];
-                damage = creature.Atk;
+                damage = creature.Stats.Attack;
                 defender.takeDamage(damage);
                 //Console.WriteLine("Creature " + creature.Name + " attacks! " + defender.Name + " lost " + creature.Atk + " HP!");
             }
@@ -202,8 +197,8 @@ namespace RPG.Battles
 
         public void updateLabels()
         {
-            labelHeroStats.setLabelText("Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.");
-            labelEnemyStats.setLabelText("Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.");
+            labelHeroStats.setLabelText("Hero " + heroes[0].Name + " has " + heroes[0].Stats.HP + " HP.");
+            labelEnemyStats.setLabelText("Enemy " + enemies[0].Name + " has " + enemies[0].Stats.HP + " HP.");
             labelElapsedTime.setLabelText("Elapsed time: " + Math.Round(elapsedTime, 2));
             labelCountdown.setLabelText("Countdown: " + Math.Round(countdown, 2));
         }
@@ -218,8 +213,8 @@ namespace RPG.Battles
             // TODO it would be better to make these labels fields and update them, rather than creating new ones every update.
             // This would also eliminate the need to re-add them to another list every update, as the reference stays equal. -Ebilkill
 
-            labelHeroStats = GuiLabel.createNewLabel(new Vector2(xPos, 0), "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", fontName);
-            labelEnemyStats = GuiLabel.createNewLabel(new Vector2(xPos, 200), "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", fontName);
+            labelHeroStats = GuiLabel.createNewLabel(new Vector2(xPos, 0), "Hero " + heroes[0].Name + " has " + heroes[0].Stats.HP + " HP.", fontName);
+            labelEnemyStats = GuiLabel.createNewLabel(new Vector2(xPos, 200), "Enemy " + enemies[0].Name + " has " + enemies[0].Stats.HP + " HP.", fontName);
             labelElapsedTime = GuiLabel.createNewLabel(new Vector2(xPos, 300), "Elapsed time " + Math.Round(elapsedTime, 2), fontName);
             labelCountdown = GuiLabel.createNewLabel(new Vector2(xPos, 400), "Countdown " + Math.Round(countdown, 2), fontName);
 
@@ -230,14 +225,6 @@ namespace RPG.Battles
 
             // Return the generated list
             return GuiList.createNewList(new Point(xPos, 0), 3, allLabels);
-        }
-
-        public void Draw(SpriteBatch spriteBatch, SpriteFont font, int x)
-        {
-            spriteBatch.DrawString(font, "Hero " + heroes[0].Name + " has " + heroes[0].HP + " HP.", new Vector2(x, 0), Color.Black);
-            spriteBatch.DrawString(font, "Enemy " + enemies[0].Name + " has " + enemies[0].HP + " HP.", new Vector2(x, 200), Color.Black);
-            spriteBatch.DrawString(font, "Elapsed time " + Math.Round(elapsedTime,2), new Vector2(x, 300), Color.Black);
-            spriteBatch.DrawString(font, "Countdown " + Math.Round(countdown,2), new Vector2(x, 400), Color.Black);
         }
     }
 }

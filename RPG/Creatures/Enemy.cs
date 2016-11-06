@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG
+namespace RPG.Creatures
 {
-    /*class Enemy : Creature
+
+    class Enemy : Creature
     {
-        public Enemy(string name) : base(name)
+        DropTemplate drops = new DropTemplate();
+
+        public Enemy(string name, CreatureStats stats) : base(name, stats, CreatureType.ENEMY)
         {
-            
+
         }
-    }*/
+    }
 }

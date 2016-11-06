@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RPG
+namespace RPG.Creatures
 {
-    /*class Hero : Creature
+    class Hero : Creature
     {
-        int attack, HP;
-        public Hero(string name, int HP, int attack) : base(name)
+        public Hero(string name, CreatureStats stats) : base(name, stats, CreatureType.HERO)
         {
-            
+
         }
-    }*/
+        //TODO add level system
+    }
 }

@@ -27,8 +27,12 @@ namespace RPG.Gui.Screens
         {
             heroList = new List<Creature>();
             baddudes = new List<Creature>();
-            hero = new Hero("tester", 100, 5, 0.5);
-            baddude = new Enemy("tester", 100, 5, 0.1);
+
+            CreatureStats heroStats = new CreatureStats(100, 5, 0.5);
+            hero = new Hero("tester", heroStats);
+
+            CreatureStats baddudeStats = new CreatureStats(100, 5, 0.1);
+            baddude = new Enemy("tester", baddudeStats);
             baddudes.Add(baddude);
             heroList.Add(hero);
             newBattle = new Battle(heroList,baddudes);

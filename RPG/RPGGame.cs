@@ -52,9 +52,11 @@ namespace RPG
         protected override void Initialize()
         {
             // Battle stuff
-            
-            warrior = new Hero("Warrior", 10, 1);
-            fish = new Enemy("Fish", 10, 1, 0.3);
+            CreatureStats warriorStats = new CreatureStats(10, 1, 0.3);
+            warrior = new Hero("Warrior", warriorStats);
+
+            CreatureStats fishStats = new CreatureStats(10, 1, 0.3);
+            fish = new Enemy("Fish", fishStats);
             List<Creature> heroes = new List<Creature>();
             List<Creature> enemies = new List<Creature>();
             heroes.Add(warrior);
@@ -62,8 +64,11 @@ namespace RPG
             anyBattle = new Battle(heroes, enemies);
             OngoingBattles.ongoingBattleList.Add(anyBattle);
 
-            noob = new Hero("Piet", 150, 10,0.009);
-            karp = new Enemy("Karp", 100, 10, 0.01);
+            CreatureStats noobStats = new CreatureStats(150, 10, 0.009);
+            noob = new Hero("Piet", noobStats);
+
+            CreatureStats karpStats = new CreatureStats(100, 10, 0.01);
+            karp = new Enemy("Karp", karpStats);
             List<Creature> noobs = new List<Creature>();
             List<Creature> fishes = new List<Creature>();
             noobs.Add(noob);

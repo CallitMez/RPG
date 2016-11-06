@@ -59,15 +59,5 @@ namespace RPG.Battles
             return battlesInformation;
         }
 
-        public static void draw(SpriteBatch spriteBatch, SpriteFont font)
-        {
-            for (int i = 0;i<ongoingBattleList.Count;i++)
-            {
-                ongoingBattleList[i].Draw(spriteBatch,font,300*i);
-            }
-            //TODO make a function that draws the ongoing battles, clickable so you can see their status
-            //TODO make a class and function that stores old battles
-        }
-
     }
 }

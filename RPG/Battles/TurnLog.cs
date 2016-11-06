@@ -34,7 +34,7 @@ namespace RPG.Battles
             foreach (Creature hero in heroes) ret += hero.Name + ", ";
             foreach (Creature enemy in enemies) ret += enemy.Name + ", ";
             ret += "\nThis turn " + attacker.Name + " fought with " + defender.Name;
-            ret += "\nHe did " + damage + " damage total, bringing " + defender.Name + " from " + (defender.HP + damage) + " to " + defender.HP;
+            ret += "\nHe did " + damage + " damage total, bringing " + defender.Name + " from " + (defender.Stats.HP + damage) + " to " + defender.Stats.HP;
             ret += "\nCurrent battle time: " + battleTimer;
             return ret;
         }

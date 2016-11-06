@@ -40,6 +40,8 @@
   <ItemGroup>
     <Compile Include="AssetManager\AssetManager.cs" />
     <Compile Include="Battles\Battle.cs" />
+    <Compile Include="Creatures\CreatureStats.cs" />
+    <Compile Include="Creatures\CreatureType.cs" />
     <Compile Include="Gui\Elements\GuiLabel.cs" />
     <Compile Include="Gui\Elements\GuiList.cs" />
     <Compile Include="Gui\Events\ClickEvent.cs" />
